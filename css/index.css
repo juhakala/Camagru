@@ -1,0 +1,25 @@
+p {
+    margin: 0;
+}
+body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+.head {
+    width: 100%;
+    min-height: 10vw;
+    max-height: 10vw;
+    background: red;
+}
+.middle {
+    width: 100%;
+    min-height: 60vw;
+}
+.footer {
+    width: 100%;
+    min-height: 10vw;
+    max-height: 10vw;
+    background: yellow;
+}
