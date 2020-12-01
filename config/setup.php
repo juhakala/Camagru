@@ -10,11 +10,13 @@ try {
         id int(9) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         `login` varchar(255) NOT NULL unique,
         `passwd` varchar(255) NOT NULL,
-        `email` varchar(255) NOT NULL unique
+        `email` varchar(255) NOT NULL unique,
+        `hash` varchar(32) NOT NULL,
+        `active` int(1) NOT NULL DEFAULT "0"
         )');
     $pass = hash('whirlpool', '123');
-    $db->exec("INSERT INTO users (login, passwd, email) VALUES ('admin', '". $pass ."', 'kalle@smil.com')");
-    $db->exec("INSERT INTO users (login, passwd, email) VALUES ('test', '1234', 'ktest@smil.com')");
+    $db->exec("INSERT INTO users (login, passwd, email, hash, active) VALUES ('admin', '". $pass ."', 'kalle@smil.com', '123', '1')");
+    $db->exec("INSERT INTO users (login, passwd, email, hash, active) VALUES ('test', '1234', 'ktest@smil.com', '345', '0')");
 
     $db->exec('CREATE TABLE IF NOT EXISTS gallery (
         id int(9) UNSIGNED AUTO_INCREMENT PRIMARY KEY,

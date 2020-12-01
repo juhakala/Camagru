@@ -2,16 +2,15 @@
 require_once('../config/connect.php');
 session_start();
 try {
-	$stmt = $db->prepare('SELECT * FROM `users` WHERE login = :log');
-	$stmt->bindParam(':log', $_GET['login']);
+	$stmt = $db->prepare('SELECT * FROM `users` WHERE email = :email');
+	$stmt->bindParam(':email', $_GET['email']);
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    print_r($stmt);
-    print_r($row);
-    if ($row && hash('whirlpool', $_GET['passwd']) ===  $row['passwd']) {
-        echo "success\n";
+    if ($row && $row['hash'] && $_GET['hash']) {
+        $stmt = $db->prepare('UPDATE `users` SET active = "1" WHERE email = :email');
+	    $stmt->bindParam(':email', $_GET['email']);
+        $stmt->execute();
         $_SESSION['login'] = $row['login'];
-        $_SESSION['active'] = $row['active'];
     }
     else 
         echo "no match\n";

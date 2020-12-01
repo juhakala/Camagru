@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('login/verifySessionLogin.php');
 ?>
 
 <!doctype html>
@@ -27,7 +28,7 @@ session_start();
 
         // ajaxify request, no ajax! put in own .js file and make it function load('url') // maybe add id or class fetch to company url 
         var request = new XMLHttpRequest();
-        request.open('GET', 'edit.php', true);
+        request.open('GET', 'api/edit.php', true);
         request.onload = function() {
             if (request.status >= 200 && request.status < 400) {
                 var resp = request.responseText;
@@ -35,9 +36,23 @@ session_start();
             }
         };
         request.send();
+
         function newUserPage() {
             var request = new XMLHttpRequest();
-            request.open('GET', 'login/newUser.php', true);
+            request.open('GET', 'api/newUser.php', true);
+            request.onload = function() {
+                if (request.status >= 200 && request.status < 400) {
+                    var resp = request.responseText;
+                    document.getElementsByClassName('middle')[0].innerHTML = resp;
+                }
+            };
+            request.send();
+        }
+        var login = '<?php echo $_SESSION['login']; ?>';
+        var active = '<?php echo $_SESSION['active']; ?>';
+        if (login != '' && active == 0) {
+            var request = new XMLHttpRequest();
+            request.open('GET', 'api/verifyAgain.php', true);
             request.onload = function() {
                 if (request.status >= 200 && request.status < 400) {
                     var resp = request.responseText;
