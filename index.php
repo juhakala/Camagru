@@ -35,6 +35,17 @@ session_start();
             }
         };
         request.send();
+        function newUserPage() {
+            var request = new XMLHttpRequest();
+            request.open('GET', 'login/newUser.php', true);
+            request.onload = function() {
+                if (request.status >= 200 && request.status < 400) {
+                    var resp = request.responseText;
+                    document.getElementsByClassName('middle')[0].innerHTML = resp;
+                }
+            };
+            request.send();
+        }
     </script>
     </body>
 </html>

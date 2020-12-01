@@ -1,5 +1,5 @@
 <?php
-require_once('config/connect.php');
+require_once('../config/connect.php');
 session_start();
 try {
 	$stmt = $db->prepare('SELECT * FROM `users` WHERE login = :log');
@@ -11,7 +11,7 @@ try {
     if ($row && hash('whirlpool', $_GET['passwd']) ===  $row['passwd']) {
         echo "success\n";
         $_SESSION['login'] = $row['login'];
-        header('location: index.php');
+        header('location: ../index.php');
     }
     else 
         echo "no match\n";
