@@ -7,8 +7,13 @@ if (isset($_GET['submit']) && $_GET['submit'] == 'again') {
     $stmt->bindParam(':email', $_GET['email']);
     $hash = md5(rand(0,1000));
     $stmt->bindParam(':hash', $hash);
-    $stmt->execute();
+    if (!$stmt->execute()) {
+        $error = $stmt->errorInfo();
+        header('location: ../index.php?error=2&string='.$error[2]);
+        die();
+    }
 }
+
 $to = $_GET['email']; // Send email to our user
 $subject = 'Signup | Verification'; // Give the email a subject 
 $message = '

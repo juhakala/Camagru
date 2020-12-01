@@ -6,17 +6,17 @@ try {
 	$stmt->bindParam(':log', $_GET['login']);
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    print_r($stmt);
-    print_r($row);
+    //print_r($stmt);
+    //print_r($row);
     if ($row && hash('whirlpool', $_GET['passwd']) ===  $row['passwd']) {
         echo "success\n";
         $_SESSION['login'] = $row['login'];
         $_SESSION['active'] = $row['active'];
+        header('location: ../index.php');
     }
     else 
-        echo "no match\n";
+        header('location: ../index.php?error=2&string=no_match');
 } catch (PDOException $msg) {
 	echo 'Error: '.$msg->getMessage();
 	die();
 }
-header('location: ../index.php');

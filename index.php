@@ -61,6 +61,19 @@ require_once('login/verifySessionLogin.php');
             };
             request.send();
         }
+        var page = '<?php echo $_GET['error']; ?>';
+        if (page == 2) {
+            var str = "<?php echo $_GET['string']; ?>";
+            var request = new XMLHttpRequest();
+            request.open('GET', 'api/error/error2.php?string='+str, true);
+            request.onload = function() {
+                if (request.status >= 200 && request.status < 400) {
+                    var resp = request.responseText;
+                    document.getElementsByClassName('middle')[0].innerHTML = resp;
+                }
+            };
+            request.send();
+        }
     </script>
     </body>
 </html>
