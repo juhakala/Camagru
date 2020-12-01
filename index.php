@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -8,19 +12,20 @@
 
     </head>
     <body>
-    <div class='head'>
-        <?php include('header.php'); ?>
-        <!-- header part -->
-    </div>
-    <div id='hello' class='middle'>
-        <!-- middle part -->
-    </div>
-    <div class='footer'>
-        <?php include('footer.php'); ?>
-        <!-- footer part -->
-    </div>
+        <div class='head'>
+            <?php include('header.php'); ?>
+            <!-- header part -->
+        </div>
+        <div id='hello' class='middle'>
+            <!-- middle part -->
+        </div>
+        <div class='footer'>
+            <?php include('footer.php'); ?>
+            <!-- footer part -->
+        </div>
     <script>
 
+        // ajaxify request, no ajax! put in own .js file and make it function load('url') // maybe add id or class fetch to company url 
         var request = new XMLHttpRequest();
         request.open('GET', 'edit.php', true);
         request.onload = function() {

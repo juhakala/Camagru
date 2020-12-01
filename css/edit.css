@@ -1,14 +1,13 @@
 .main {
-    float: left;
+    position: absolute;
     width: 70%;
-    min-height: 60vw;
-    max-height: 60vw;
     background: orange;
+    min-height: inherit;
 }
 .side {
-    float: right;
+    position: absolute;
+    right: 0;
     width: 30%;
-    min-height: 60vw;
-    max-height: 60vw;
     background: green;
+    min-height: inherit;
 }
