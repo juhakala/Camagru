@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('config/run_setup.php');
 require_once('login/verifySessionLogin.php');
 ?>
 
@@ -48,6 +49,18 @@ require_once('login/verifySessionLogin.php');
             };
             request.send();
         }
+        function forgotPassPage() {
+            var request = new XMLHttpRequest();
+            request.open('GET', 'api/forgotPass.php', true);
+            request.onload = function() {
+                if (request.status >= 200 && request.status < 400) {
+                    var resp = request.responseText;
+                    document.getElementsByClassName('middle')[0].innerHTML = resp;
+                }
+            };
+            request.send();
+        }
+
         var login = '<?php echo $_SESSION['login']; ?>';
         var active = '<?php echo $_SESSION['active']; ?>';
         if (login != '' && active == 0) {
@@ -66,6 +79,20 @@ require_once('login/verifySessionLogin.php');
             var str = "<?php echo $_GET['string']; ?>";
             var request = new XMLHttpRequest();
             request.open('GET', 'api/error/error2.php?string='+str, true);
+            request.onload = function() {
+                if (request.status >= 200 && request.status < 400) {
+                    var resp = request.responseText;
+                    document.getElementsByClassName('middle')[0].innerHTML = resp;
+                }
+            };
+            request.send();
+        }
+        var page = '<?php echo $_GET['reset']; ?>';
+        if (page == 'yes') {
+            var email = "<?php echo $_GET['email']; ?>";
+            var hash = "<?php echo $_GET['hash']; ?>";
+            var request = new XMLHttpRequest();
+            request.open('GET', 'api/resetPass.php?email='+email+'&hash='+hash, true);
             request.onload = function() {
                 if (request.status >= 200 && request.status < 400) {
                     var resp = request.responseText;

@@ -6,7 +6,7 @@ try {
 	$stmt->bindParam(':email', $_GET['email']);
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($row && $row['hash'] && $_GET['hash']) {
+    if ($row && $row['hash'] === $_GET['hash']) {
         $stmt = $db->prepare('UPDATE `users` SET active = "1" WHERE email = :email');
 	    $stmt->bindParam(':email', $_GET['email']);
         $stmt->execute();

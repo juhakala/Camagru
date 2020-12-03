@@ -6,8 +6,6 @@ try {
 	$stmt->bindParam(':log', $_GET['login']);
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    //print_r($stmt);
-    //print_r($row);
     if ($row && hash('whirlpool', $_GET['passwd']) ===  $row['passwd']) {
         echo "success\n";
         $_SESSION['login'] = $row['login'];

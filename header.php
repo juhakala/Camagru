@@ -12,5 +12,7 @@ if (isset($_SESSION['login']) && $_SESSION['login'] != "") { ?>
         <input type="submit" value="ok">
     </form>
     <input onclick='newUserPage()' type="submit" value="CreateNewUser">
+    <br>
+    <input onclick='forgotPassPage()' type="submit" value="ForgotPasswd">
 <?php
 } ?>
