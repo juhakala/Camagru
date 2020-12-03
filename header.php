@@ -4,6 +4,7 @@ if (isset($_SESSION['login']) && $_SESSION['login'] != "") { ?>
     <form action='login/logout.php'>
         <input type="submit" value="logout">
     </form>
+    <input onclick='userSettingsPage()' type="submit" value="userSettings">
     <?php
 } else { ?>
     <form action='login/login.php'>

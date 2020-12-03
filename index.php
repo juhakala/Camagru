@@ -60,6 +60,17 @@ require_once('login/verifySessionLogin.php');
             };
             request.send();
         }
+        function userSettingsPage() {
+            var request = new XMLHttpRequest();
+            request.open('GET', 'api/userSettings.php', true);
+            request.onload = function() {
+                if (request.status >= 200 && request.status < 400) {
+                    var resp = request.responseText;
+                    document.getElementsByClassName('middle')[0].innerHTML = resp;
+                }
+            };
+            request.send();
+        }
 
         var login = '<?php echo $_SESSION['login']; ?>';
         var active = '<?php echo $_SESSION['active']; ?>';
