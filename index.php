@@ -8,6 +8,7 @@ require_once('login/verifySessionLogin.php');
 <html lang="en">
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Camagru</title>
         <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/edit.css">
@@ -29,7 +30,8 @@ require_once('login/verifySessionLogin.php');
 
         // ajaxify request, no ajax! put in own .js file and make it function load('url') // maybe add id or class fetch to company url 
         var request = new XMLHttpRequest();
-        request.open('GET', 'api/edit.php', true);
+        //request.open('GET', 'api/edit.php', true);
+        request.open('GET', 'gallery.php', true);
         request.onload = function() {
             if (request.status >= 200 && request.status < 400) {
                 var resp = request.responseText;
@@ -37,6 +39,22 @@ require_once('login/verifySessionLogin.php');
             }
         };
         request.send();
+        var xhr = new XMLHttpRequest();
+        doc = document;
+        xhr.responseType = 'blob';
+        xhr.open('GET', 'test.js', true);
+        xhr.onload = function () {
+            var script = doc.createElement('script'),
+            src = URL.createObjectURL(xhr.response);
+
+            script.src = src;
+            doc.body.appendChild(script);
+        };
+        xhr.send();
+
+
+
+
 
         function newUserPage() {
             var request = new XMLHttpRequest();
@@ -112,6 +130,10 @@ require_once('login/verifySessionLogin.php');
             };
             request.send();
         }
+        window.addEventListener('load', (event) => {
+            console.log('index page is fully loaded');
+        });
     </script>
+
     </body>
 </html>

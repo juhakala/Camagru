@@ -30,7 +30,7 @@ $subject = 'Reset | passwd'; // Give the email a subject
 $message = '
   
 Please click this link to reset your passwd:
-http://localhost:8888/Camagru/index.php?reset=yes&email='.$_GET['email'].'&hash='.$hash.'
+http://localhost:8080/Camagru/index.php?reset=yes&email='.$_GET['email'].'&hash='.$hash.'
   
 '; // Our message above including the link
                       
