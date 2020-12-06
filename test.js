@@ -12,17 +12,18 @@ function addEvent(obj,ev,fn) {
   }
   function scroller() {
     more = '<div style="height: 600px; background: #EEE;"><img src="img/dog'+n+'.jpg" style="height: 600px;"></div><div style="height: 600px; background: #EEE;"><img src="img/dog'+(n+1)+'.jpg" style="height: 600px;"></div>';
-    console.log('scroll');
+    //console.log('scroll');
+    //console.log('himaan');
     test.innerHTML = wrapper.scrollTop +"+"+wrapper.offsetHeight+">"+content.offsetHeight;
     if(wrapper.scrollTop +wrapper.offsetHeight>content.offsetHeight - 100 && times < 3) {
       content.innerHTML+= more;
-      console.log(content);
+      //console.log(content);
       n += 2;
       if (n > 6) {
-          times++;
+          //times++;
           n = 1;
       }
     }
   }
   addEvent(wrapper,"scroll",scroller);
-  console.log('gallery page is fully loaded');
+//  console.log('gallery page is fully loaded');

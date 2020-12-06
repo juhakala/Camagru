@@ -10,7 +10,8 @@ require_once('login/verifySessionLogin.php');
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Camagru</title>
-        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/styleindex.css">
+        <link rel="stylesheet" href="css/header.css">
         <link rel="stylesheet" href="css/edit.css">
 
     </head>
@@ -30,8 +31,7 @@ require_once('login/verifySessionLogin.php');
 
         // ajaxify request, no ajax! put in own .js file and make it function load('url') // maybe add id or class fetch to company url 
         var request = new XMLHttpRequest();
-        //request.open('GET', 'api/edit.php', true);
-        request.open('GET', 'gallery.php', true);
+        request.open('GET', 'api/edit.php', true);
         request.onload = function() {
             if (request.status >= 200 && request.status < 400) {
                 var resp = request.responseText;
@@ -39,21 +39,50 @@ require_once('login/verifySessionLogin.php');
             }
         };
         request.send();
-        var xhr = new XMLHttpRequest();
-        doc = document;
-        xhr.responseType = 'blob';
-        xhr.open('GET', 'test.js', true);
-        xhr.onload = function () {
-            var script = doc.createElement('script'),
-            src = URL.createObjectURL(xhr.response);
 
-            script.src = src;
-            doc.body.appendChild(script);
-        };
-        xhr.send();
+        function galleryPage() {
+            var request = new XMLHttpRequest();
+            request.open('GET', 'gallery.php', true);
+            request.onload = function() {
+                if (request.status >= 200 && request.status < 400) {
+                    var resp = request.responseText;
+                    document.getElementsByClassName('middle')[0].innerHTML = resp;
+                }
+            };
+            request.send();
+            var xhr = new XMLHttpRequest();
+            doc = document;
+            xhr.responseType = 'blob';
+            xhr.open('GET', 'test.js', true);
+            xhr.onload = function () {
+                var script = doc.createElement('script'),
+                src = URL.createObjectURL(xhr.response);
+
+                script.src = src;
+                doc.body.appendChild(script);
+            };
+            xhr.send();
+        }
 
 
-
+        function userLoginPage() {
+            var request = new XMLHttpRequest();
+            request.open('GET', 'api/login.php', true);
+            request.onload = function() {
+                if (request.status >= 200 && request.status < 400) {
+                    var resp = request.responseText;
+                    document.getElementsByClassName('middle')[0].innerHTML = resp;
+                }
+            };
+            request.send();
+        }
+        function userLogoutPage() {
+            var request = new XMLHttpRequest();
+            request.open('GET', 'login/logout.php', true);
+            request.onload = function() {};
+            request.send();
+            document.location.reload(true);
+        }
 
 
         function newUserPage() {

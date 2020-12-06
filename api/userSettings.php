@@ -1,6 +1,8 @@
 <?php
 session_start();
-phpinfo();
+if (!isset($_SESSION['login']) || $_SESSION['login'] == "" || $_SESSION['active'] == 0) {
+    die();
+}
 ?>
 <p>change Password</p>
 <form action='login/userSettings.php'>
