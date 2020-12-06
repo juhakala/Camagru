@@ -28,96 +28,7 @@ require_once('login/verifySessionLogin.php');
             <!-- footer part -->
         </div>
     <script>
-
-        // ajaxify request, no ajax! put in own .js file and make it function load('url') // maybe add id or class fetch to company url 
-        var request = new XMLHttpRequest();
-        request.open('GET', 'api/edit.php', true);
-        request.onload = function() {
-            if (request.status >= 200 && request.status < 400) {
-                var resp = request.responseText;
-                document.getElementsByClassName('middle')[0].innerHTML = resp;
-            }
-        };
-        request.send();
-
-        function galleryPage() {
-            var request = new XMLHttpRequest();
-            request.open('GET', 'gallery.php', true);
-            request.onload = function() {
-                if (request.status >= 200 && request.status < 400) {
-                    var resp = request.responseText;
-                    document.getElementsByClassName('middle')[0].innerHTML = resp;
-                }
-            };
-            request.send();
-            var xhr = new XMLHttpRequest();
-            doc = document;
-            xhr.responseType = 'blob';
-            xhr.open('GET', 'test.js', true);
-            xhr.onload = function () {
-                var script = doc.createElement('script'),
-                src = URL.createObjectURL(xhr.response);
-
-                script.src = src;
-                doc.body.appendChild(script);
-            };
-            xhr.send();
-        }
-
-
-        function userLoginPage() {
-            var request = new XMLHttpRequest();
-            request.open('GET', 'api/login.php', true);
-            request.onload = function() {
-                if (request.status >= 200 && request.status < 400) {
-                    var resp = request.responseText;
-                    document.getElementsByClassName('middle')[0].innerHTML = resp;
-                }
-            };
-            request.send();
-        }
-        function userLogoutPage() {
-            var request = new XMLHttpRequest();
-            request.open('GET', 'login/logout.php', true);
-            request.onload = function() {};
-            request.send();
-            document.location.reload(true);
-        }
-
-
-        function newUserPage() {
-            var request = new XMLHttpRequest();
-            request.open('GET', 'api/newUser.php', true);
-            request.onload = function() {
-                if (request.status >= 200 && request.status < 400) {
-                    var resp = request.responseText;
-                    document.getElementsByClassName('middle')[0].innerHTML = resp;
-                }
-            };
-            request.send();
-        }
-        function forgotPassPage() {
-            var request = new XMLHttpRequest();
-            request.open('GET', 'api/forgotPass.php', true);
-            request.onload = function() {
-                if (request.status >= 200 && request.status < 400) {
-                    var resp = request.responseText;
-                    document.getElementsByClassName('middle')[0].innerHTML = resp;
-                }
-            };
-            request.send();
-        }
-        function userSettingsPage() {
-            var request = new XMLHttpRequest();
-            request.open('GET', 'api/userSettings.php', true);
-            request.onload = function() {
-                if (request.status >= 200 && request.status < 400) {
-                    var resp = request.responseText;
-                    document.getElementsByClassName('middle')[0].innerHTML = resp;
-                }
-            };
-            request.send();
-        }
+        masters(sessionStorage.getItem('page') == null ? 'gallery.php' : sessionStorage.getItem('page')); //for reload 
 
         var login = '<?php echo $_SESSION['login']; ?>';
         var active = '<?php echo $_SESSION['active']; ?>';
@@ -159,9 +70,6 @@ require_once('login/verifySessionLogin.php');
             };
             request.send();
         }
-        window.addEventListener('load', (event) => {
-            console.log('index page is fully loaded');
-        });
     </script>
 
     </body>
