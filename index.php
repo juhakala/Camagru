@@ -27,10 +27,12 @@ require_once('login/verifySessionLogin.php');
             <?php include('footer.php'); ?>
             <!-- footer part -->
         </div>
+    <script src='js/index.js'></script>
+    <script src='js/header.js'></script>
     <script>
         var url = sessionStorage.getItem('page') == null ? 'gallery.php' : sessionStorage.getItem('page');
         var form = sessionStorage.getItem('form') == null ? 'js/gallery.js' : sessionStorage.getItem('form')
-        masters(url, form); //for reload 
+        masters(url, form); //for reload
 
         var login = '<?php echo $_SESSION['login']; ?>';
         var active = '<?php echo $_SESSION['active']; ?>';
@@ -61,6 +63,6 @@ require_once('login/verifySessionLogin.php');
             request.send();
         }
     </script>
-    <script src='js/index.js'></script>
+    <script id="tmpScript"></script>
     </body>
 </html>

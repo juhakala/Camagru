@@ -8,7 +8,7 @@ function fade(element) {
         element.style.opacity = op;
         element.style.filter = 'alpha(opacity=' + op * 100 + ")";
         op -= op * 0.1;
-    }, 50);
+    }, 300);
 }
 function messageBox(str, color) {    
     var element = document.createElement('div');
@@ -21,6 +21,7 @@ function messageBox(str, color) {
     element.innerHTML = str;
     parent.appendChild(element);
     document.body.appendChild(parent);
+    fade(element);
 }
 
 if (sessionStorage.getItem('message') != null) {

@@ -24,10 +24,8 @@ function masters(str, form) {
         }
     };
     request.send();
-    if (form != null) {
-        //console.log('form data');
+    if (form != null)
         formPage(form)
-    }
 }
 
 function formPage(str) {
@@ -35,9 +33,11 @@ function formPage(str) {
     js_request.responseType = 'blob';
     js_request.open('GET', str, true);
     js_request.onload = function () {
+        document.getElementById('tmpScript').remove();
         var script = document.createElement('script'),
         src = URL.createObjectURL(js_request.response);
         script.src = src;
+        script.setAttribute("id", "tmpScript");
         document.body.appendChild(script);
     };
     js_request.send();

@@ -21,5 +21,3 @@
         <div class='login' onclick='masters("api/forgotPass.php", null)'>Forgot Passwd</div>
     <?php } ?>
 </div>
-
-<script src='js/header.js'></script>
