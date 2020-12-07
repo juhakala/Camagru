@@ -30,22 +30,18 @@ require_once('login/verifySessionLogin.php');
     <script src='js/index.js'></script>
     <script src='js/header.js'></script>
     <script>
-        var url = sessionStorage.getItem('page') == null ? 'gallery.php' : sessionStorage.getItem('page');
-        var form = sessionStorage.getItem('form') == null ? 'js/gallery.js' : sessionStorage.getItem('form')
-        masters(url, form); //for reload
-
         var login = '<?php echo $_SESSION['login']; ?>';
         var active = '<?php echo $_SESSION['active']; ?>';
-        if (login != '' && active == 0) {
-            var request = new XMLHttpRequest();
-            request.open('GET', 'api/verifyAgain.php', true);
-            request.onload = function() {
-                if (request.status >= 200 && request.status < 400) {
-                    var resp = request.responseText;
-                    document.getElementsByClassName('middle')[0].innerHTML = resp;
-                }
-            };
-            request.send();
+
+        var url = sessionStorage.getItem('page') == 'null' ? 'gallery.php' : sessionStorage.getItem('page');
+        var form = url == 'gallery.php' ? 'js/gallery.js' : sessionStorage.getItem('form');
+
+        masters(url, form); //for div appending
+        function masters(str, form) {
+            if (login != '' && active == 0) //always redirect to verifyAgain if not active
+                slaves('api/verifyAgain.php', 'null');
+            else
+                slaves(str, form);
         }
 
         var page = '<?php echo $_GET['reset']; ?>';

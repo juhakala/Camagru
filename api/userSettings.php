@@ -1,6 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['login']) || $_SESSION['login'] == "" || $_SESSION['active'] == 0) {
+    header('location: verifyAgain.php');
     die();
 }
 ?>

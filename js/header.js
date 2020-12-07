@@ -11,7 +11,7 @@ window.onclick = function(e) {
 
 // masters function to handle middle class filling by xmlhttprequests
 var request = new XMLHttpRequest();
-function masters(str, form) {
+function slaves(str, form) {
     //console.log('str is: ' + str);
     //console.log('form is: ' + form);
     sessionStorage.setItem('page', str);
@@ -24,8 +24,11 @@ function masters(str, form) {
         }
     };
     request.send();
-    if (form != null)
-        formPage(form)
+    if (form != 'null') {
+        //console.log('inside form is: ' + form);
+        formPage(form);
+    }
+    //console.log('end');
 }
 
 function formPage(str) {
