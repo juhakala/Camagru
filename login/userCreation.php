@@ -1,7 +1,7 @@
 <?php
 require_once('../config/connect.php');
 session_start();
-if ($_GET['passwd'] == $_GET['passwdAgain']) {
+if (isset($_GET['passwd']) && $_GET['passwd'] == $_GET['passwdAgain']) {
     try {
     	$stmt = $db->prepare('SELECT * FROM `users` WHERE login = :log OR email = :email');
         $stmt->bindParam(':log', $_GET['login']);
@@ -29,5 +29,5 @@ if ($_GET['passwd'] == $_GET['passwdAgain']) {
     }
 }
 else {
-    header('location: ../index.php?error=2&string=passwd_and_passwd_no_match');
+    header('location: ../index.php?error=2&string=passwd_and_passwdAgain_no_match');
 }

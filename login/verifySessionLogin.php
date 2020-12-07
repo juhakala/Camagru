@@ -16,6 +16,5 @@ if (isset($_SESSION['login']) && $_SESSION['login'] != "") {
         echo 'Error: '.$Exception->getMessage();
         die();
     }
-}
-else
+} else
     $_SESSION['login'] = "";

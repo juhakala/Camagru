@@ -1,1 +1,0 @@
-<p><?php echo $_GET['string']; ?></p>

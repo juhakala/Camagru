@@ -1,20 +1,30 @@
 <?php
 require_once('../config/connect.php');
 session_start();
-try {
-	$stmt = $db->prepare('SELECT * FROM `users` WHERE login = :log');
-	$stmt->bindParam(':log', $_GET['login']);
-    $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($row && hash('whirlpool', $_GET['passwd']) ===  $row['passwd']) {
-        echo "success\n";
-        $_SESSION['login'] = $row['login'];
-        $_SESSION['active'] = $row['active'];
-        header('location: ../index.php');
+
+if (isset($_POST['login']) && isset($_POST['passwd'])) {
+    try {
+    	$stmt = $db->prepare('SELECT * FROM `users` WHERE login = :log');
+    	$stmt->bindParam(':log', $_POST['login']);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row && hash('whirlpool', $_POST['passwd']) ===  $row['passwd']) {
+            $_SESSION['login'] = $row['login'];
+            $_SESSION['active'] = $row['active'];
+            //header('location: ../index.php');
+            echo "success";
+        }
+        else {
+    //        header('location: ../index.php?error=2&string=no_match');
+            //header('location: ../index.php');
+            //echo "<script>console.log('hello');</script>";
+            //echo "<script type='text/javascript' src='js/index.js'>messageBox('not_match');</script>";
+            echo "error";
+        }
+    } catch (PDOException $msg) {
+    	echo 'Error: '.$msg->getMessage();
+    	die();
     }
-    else 
-        header('location: ../index.php?error=2&string=no_match');
-} catch (PDOException $msg) {
-	echo 'Error: '.$msg->getMessage();
-	die();
-}
+} else
+    echo "genericreturn value";
+?>

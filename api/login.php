@@ -1,4 +1,4 @@
-<form action='login/login.php'>
+<form id='loginform' action='login/login.php' method='get'>
     <input type='text' placeholder='Login' name='login' required>
     <br>
     <input type='password' placeholder='Password' name='passwd' required>

@@ -9,11 +9,13 @@ window.onclick = function(e) {
     }
 }
 
-// master function to handle middle class filling by xmlhttprequests
+// masters function to handle middle class filling by xmlhttprequests
 var request = new XMLHttpRequest();
-function masters(str) {
-//    url = sessionStorage.getItem('page') == null ? 'gallery.php' : sessionStorage.getItem('page');
+function masters(str, form) {
+    //console.log('str is: ' + str);
+    //console.log('form is: ' + form);
     sessionStorage.setItem('page', str);
+    sessionStorage.setItem('form', form);
     request.open('GET', str, true);
     request.onload = function() {
         if (request.status >= 200 && request.status < 400) {
@@ -22,16 +24,16 @@ function masters(str) {
         }
     };
     request.send();
-    console.log("str url is: " + str);
-    if (str == 'gallery.php')
-        galleryPage()
+    if (form != null) {
+        //console.log('form data');
+        formPage(form)
+    }
 }
 
-function galleryPage() {
-    //sessionStorage.setItem('page', 'gallery.php');
+function formPage(str) {
     var js_request = new XMLHttpRequest();
     js_request.responseType = 'blob';
-    js_request.open('GET', 'test.js', true);
+    js_request.open('GET', str, true);
     js_request.onload = function () {
         var script = document.createElement('script'),
         src = URL.createObjectURL(js_request.response);
@@ -40,28 +42,9 @@ function galleryPage() {
     };
     js_request.send();
 }
-//function editPage() {
-//    //sessionStorage.setItem('page', 'api/edit.php');
-//    //masters();
-//}
-//function userSettingsPage() {
-//    //sessionStorage.setItem('page', 'api/userSettings.php');
-//    //masters();
-//}
-//function forgotPassPage() {
-//    //sessionStorage.setItem('page', 'api/forgotPass.php');
-//    //masters();
-//}
-//function newUserPage() {
-//    //sessionStorage.setItem('page', 'api/newUser.php');
-//    //masters();
-//}
-//function userLoginPage() {
-//    //sessionStorage.setItem('page', 'api/login.php');
-//    //masters();
-//}
 function userLogoutPage() {
     sessionStorage.setItem('page', 'gallery.php');
+    sessionStorage.setItem('form', 'js/gallery.js');
     console.log(sessionStorage.getItem('page'));
     request.open('GET', 'login/logout.php', true);
     request.onload = function() {};
