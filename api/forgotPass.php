@@ -1,5 +1,5 @@
-<form action='login/forgotMail.php'>
+<form id='forms'>
     <input type='email' placeholder='Email' name='email' required>
     <br>
-    <input type="submit" value="forgot">
+    <input id='formUrl' type="submit" value="ok" name='login/forgotMail.php'>
 </form>

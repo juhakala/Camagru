@@ -17,7 +17,7 @@
         <div class='login' onclick='masters("api/edit.php", "null")'>Edit</div>
     <?php } else { ?>
         <div class='login' onclick='masters("api/login.php", "js/forms.js")'>Login</div>
-        <div class='login' onclick='masters("api/newUser.php", "null")'>Create New User</div>
-        <div class='login' onclick='masters("api/forgotPass.php", "null")'>Forgot Passwd</div>
+        <div class='login' onclick='masters("api/newUser.php", "js/forms.js")'>Create New User</div>
+        <div class='login' onclick='masters("api/forgotPass.php", "js/forms.js")'>Forgot Passwd</div>
     <?php } ?>
 </div>

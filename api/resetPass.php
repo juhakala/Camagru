@@ -1,11 +1,9 @@
-<form action='login/reset.php'>
-    <input type='email' value='<?php echo $_GET['email']; ?>' name='email' readonly>
-    <br>
-    <input type='password' value='<?php echo $_GET['hash']; ?>' name='hash' readonly>
-    <br>
+<form action='../login/confirmReset.php' method='post'>
+    <input type='hidden' value='<?php echo $_POST['email']; ?>' name='email' readonly>
+    <input type='hidden' value='<?php echo $_POST['hash']; ?>' name='hash' readonly>
     <input type='password' placeholder='Passwd' name='passwd' required>
     <br>
     <input type='password' placeholder='PasswdAgain' name='passwdAgain' required>
     <br>
-    <input type="submit" name="submit" value="OK">
+    <input type="submit" value="ok">
 </form>

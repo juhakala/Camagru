@@ -21,6 +21,10 @@ function slaves(str, form) {
         if (request.status >= 200 && request.status < 400) {
             var resp = request.responseText;
             document.getElementsByClassName('middle')[0].innerHTML = resp;
+            if (form != 'null') {
+                //console.log('inside form is: ' + form);
+                formPage(form);
+            }
         }
     };
     request.send();

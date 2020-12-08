@@ -1,26 +1,31 @@
 <?php
 require_once('../config/connect.php');
 session_start();
+try {
+	$stmt = $db->prepare('SELECT * FROM `users` WHERE email = :email AND hash = :hash');
+    $stmt->bindParam(':email', $_GET['email']);
+	$stmt->bindParam(':hash', $_GET['hash']);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($row) {
+?>
+        <form id='its' action="../api/resetPass.php" method="post">
+            <input type="hidden" name="email" value="<?php echo $_GET['email']; ?>" readonly>
+            <input type="hidden" name="hash" value="<?php echo $_GET['hash']; ?>" readonly>
+        </form>
+        <?php //echo "something"; //die(); ?>
+        <script type="text/javascript">
+            //sessionStorage.setItem('page', 'api/resetPass.php');
+            //sessionStorage.setItem('form', 'js/forms.js');
+            console.log('reset.php');
+            document.getElementById('its').submit();
+        </script>
+<?php
 
-if (isset($_GET['passwd']) && $_GET['passwd'] === $_GET['passwdAgain']) {
-    try {
-        $stmt = $db->prepare('SELECT * FROM `users` WHERE email = :email AND hash = :hash');
-        $stmt->bindParam(':email', $_GET['email']);
-        $stmt->bindParam(':hash', $_GET['hash']);
-        $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if (!$row) {
-            header('location: ../index.php?error=2&string=cheater');
-            die();
-        }
-        $stmt = $db->prepare('UPDATE `users` SET passwd = :passwd WHERE email = :email');
-        $stmt->bindParam(':email', $_GET['email']);
-        $pass = hash('whirlpool', $_GET['passwd']);
-        $stmt->bindParam(':passwd', $pass);
-        $stmt->execute();
-        header('location: ../index.php?error=2&string=passwd_reset');
-    } catch( PDOException $Exception ) {
-        echo 'Error: '.$Exception->getMessage();
-        die();
     }
+    else 
+        echo "no hash or email wrong\n";
+} catch (PDOException $msg) {
+	echo 'Error: '.$msg->getMessage();
+	die();
 }

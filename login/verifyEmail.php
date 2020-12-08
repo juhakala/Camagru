@@ -27,7 +27,7 @@ if (isset($_GET['submit']) && $_GET['submit'] == 'again') {
     }
 }
 
-$to = $_GET['email']; // Send email to our user
+$to = $_POST['email']; // Send email to our user
 $subject = 'Signup | Verification'; // Give the email a subject 
 $message = '
   
@@ -39,7 +39,7 @@ Username: '.$_SESSION['login'].'
 ------------------------
   
 Please click this link to activate your account:
-http://localhost:8080/Camagru/login/verify.php?email='.$_GET['email'].'&hash='.$hash.'
+http://localhost:8080/Camagru/login/verify.php?email='.$_POST['email'].'&hash='.$hash.'
   
 '; // Our message above including the link
                       
@@ -47,6 +47,8 @@ $headers = 'From:noreply@localhost.com' . "\r\n"; // Set from headers
 if (mail($to, $subject, $message, $headers) === true) { // Send our email
     if (isset($_GET['submit']) && $_GET['submit'] == 'again')
         header('location: ../index.php');
-} else
-    echo "not send";
+} else {
+    echo "verifycation email not send";
+    die ();
+}
 ?>

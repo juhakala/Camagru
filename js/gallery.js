@@ -1,3 +1,5 @@
+
+//window.addEventListener('DOMContentLoaded', (event) => {
 var more = '<div style="height: 600px; background: #EEE;"><img src="img/dog1.jpg" style="height: 600px;"></div><div style="height: 600px; background: #EEE;"><img src="img/dog2.jpg" style="height: 600px;"></div>';
 var wrapper = document.getElementById("wrapper");
 var content = document.getElementById("content");
@@ -10,7 +12,7 @@ function addEvent(obj,ev,fn) {
     if(obj.addEventListener)
         obj.addEventListener(ev,fn,false);
     else if(obj.attachEvent)
-        obj.attachEvent("on"+ev,fn);    
+        obj.attachEvent("on"+ev,fn);
 }
 function scroller() {
     more = '<div style="height: 600px; background: #EEE;"><img src="img/dog'+n+'.jpg" style="height: 600px;"></div><div style="height: 600px; background: #EEE;"><img src="img/dog'+(n+1)+'.jpg" style="height: 600px;"></div>';
