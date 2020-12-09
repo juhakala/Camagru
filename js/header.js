@@ -28,10 +28,10 @@ function slaves(str, form) {
         }
     };
     request.send();
-    if (form != 'null') {
+    //if (form != 'null') {
         //console.log('inside form is: ' + form);
-        formPage(form);
-    }
+    //    formPage(form);
+    //}
     //console.log('end');
 }
 

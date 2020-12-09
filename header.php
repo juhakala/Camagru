@@ -14,7 +14,7 @@
     <?php if (isset($_SESSION['login']) && $_SESSION['login'] != "") { ?>
         <div class='login' onclick='userLogoutPage()'>Logout</div>
         <div class='login' onclick='masters("api/userSettings.php", "null")'><?php echo $_SESSION['login']; ?> &#9881;</div>
-        <div class='login' onclick='masters("api/edit.php", "null")'>Edit</div>
+        <div class='login' onclick='masters("api/edit.php", "js/edit.js")'>Edit</div>
     <?php } else { ?>
         <div class='login' onclick='masters("api/login.php", "js/forms.js")'>Login</div>
         <div class='login' onclick='masters("api/newUser.php", "js/forms.js")'>Create New User</div>
