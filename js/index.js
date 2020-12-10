@@ -1,16 +1,18 @@
-function fade(element) {
+function fade(parent, element) {
     var op = 1;  // initial opacity
     var timer = setInterval(function () {
         if (op <= 0.1){
             clearInterval(timer);
             element.style.display = 'none';
+            document.body.removeChild(parent);
         }
         element.style.opacity = op;
         element.style.filter = 'alpha(opacity=' + op * 100 + ")";
         op -= op * 0.1;
     }, 300);
+    //document.body.removeChild(parent);
 }
-function messageBox(str, color) {    
+function messageBox(str, color) {
     var element = document.createElement('div');
     var parent = document.createElement('div');
     parent.setAttribute("class", "messagediv");
@@ -21,7 +23,7 @@ function messageBox(str, color) {
     element.innerHTML = str;
     parent.appendChild(element);
     document.body.appendChild(parent);
-    fade(element);
+    fade(parent, element);
 }
 
 if (sessionStorage.getItem('message') != null) {

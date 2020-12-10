@@ -7,7 +7,6 @@
     border: solid 3vw #EEE;
 }
 .galdiv {
-    #height: 600px;
     height: 50vh;
     #margin-left: 50%;
     width: fit-content;
@@ -26,4 +25,20 @@
     margin-left: 50%;
     margin-top: -25vh;
 }
-
+.clickcont {
+    position: absolute;
+    top: 10vh;
+    left: 5vw;
+    max-width: 90vw;
+    max-height: 80vh;
+    min-width: 90vw;
+    #min-height: 80vh;
+    background: green;
+}
+.clickpicture {
+    max-width: 40vw;
+    max-height: 80vh;
+}
+.commentcont {
+    float: right;
+}

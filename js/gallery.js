@@ -1,4 +1,4 @@
-
+var close = true;
 var wrapper = document.getElementById("wrapper");
 var content = document.getElementById("content");
 var test = document.getElementById("test");
@@ -27,6 +27,7 @@ function makeCallForPics() {
                 child.src = 'img/'+resp[i]['name'];
                 child.classList.add("galpicture");
                 child.setAttribute("id", "picinstance"+resp[i]['id']);
+                child.setAttribute("alt", resp[i]['id']);
                 var likes = document.createElement("p");
                 likes.classList.add("hoverpic");
                 likes.setAttribute("id", "hoverinstance"+resp[i]['id']);
@@ -37,7 +38,6 @@ function makeCallForPics() {
 //                console.log('picinstance'+resp[i]['id']);
                 var elem = document.getElementById('picinstance'+resp[i]['id']);
                 var p_elem = document.getElementById('hoverinstance'+resp[i]['id']);
-                console.log(p_elem);
                 elem.addEventListener("mouseenter", function( event ) {
                     //console.log(event.target.id.replace('pic', 'hover'));
                     event.target.style.opacity = '0.3';
@@ -50,7 +50,16 @@ function makeCallForPics() {
 
                 elem.addEventListener('click', function( event ) { 
                     console.log('soon');
-
+                    var element = document.createElement("div");
+                    element.classList.add("clickcont");
+                    var child = document.createElement("IMG");
+                    child.classList.add("clickpicture");
+                    child.src = event.target.src.slice(30);
+                    element.appendChild(child);
+                    element.appendChild(get_comments(event.target.alt));
+                    document.body.appendChild(element);
+                    console.log(element);
+                    close = false;
                 });
                 i++;
             }
@@ -76,7 +85,26 @@ function scroller() {
 }
 addEvent(wrapper,"scroll",scroller);
 
-//function hoverpicture() {
-  //  console.log('here');
-    //this.style.opacity = '0.5';
-//}
+window.onclick = function(e) {
+    if (!e.target.matches('.clickcont')) {
+        var show = document.getElementsByClassName("clickcont")[0];
+        if (close == true) {
+            if (show) {
+                document.body.removeChild(show);
+                console.log('closed');
+            }
+        }
+        close = true;
+    }
+}
+
+function get_comments(id) {
+    console.log('getting comments of id: ' + id + ' soon.');
+    var child = document.createElement("div");
+    child.classList.add("commentcont");
+    child.innerHTML = 'all of them comments';
+    child.innerHTML += '<br>all of them comments';
+    child.innerHTML += '<br>all of them comments';
+    child.innerHTML += '<br>all of them comments';
+    return (child);
+}
