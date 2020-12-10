@@ -32,6 +32,17 @@ try {
     $db->exec("INSERT IGNORE INTO gallery (name, login, width, height) VALUES ('dog4.jpg', 'admin', '7375', '4919')");
     $db->exec("INSERT IGNORE INTO gallery (name, login, width, height) VALUES ('dog5.jpg', 'admin', '5184', '3456')");
     $db->exec("INSERT IGNORE INTO gallery (name, login, width, height) VALUES ('dog6.jpg', 'admin', '3648', '5472')");
+    
+    $db->exec('CREATE TABLE IF NOT EXISTS comments (
+        id int(9) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        `gallery_id` varchar(255) NOT NULL,
+        `author` varchar(255) NOT NULL,
+        `text` TEXT NOT NULL
+        )');
+    $db->exec("INSERT IGNORE INTO comments (gallery_id, author, text) VALUES (1, 'admin', 'sopo koira')");
+    $db->exec("INSERT IGNORE INTO comments (gallery_id, author, text) VALUES (1, 'test', 'kehuu omaa koiraansa sopoks? weird flex bro')");
+
+
 
 } catch( PDOException $Exception ) {
     echo 'Error: '.$Exception->getMessage();

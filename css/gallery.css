@@ -34,11 +34,22 @@
     min-width: 90vw;
     #min-height: 80vh;
     background: green;
+    opacity: 1.0;
 }
 .clickpicture {
     max-width: 40vw;
     max-height: 80vh;
 }
 .commentcont {
-    float: right;
+    position: absolute;
+    margin-left: 41vw;
+    top: 0;
+}
+.commentbackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6)
 }
