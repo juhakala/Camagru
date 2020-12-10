@@ -4,7 +4,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] == "") {
     die();
 }
 ?>
-<form action='login/verifyEmail.php'>
+<form action='server/verifyEmail.php'>
     <input type='email' placeholder='Email' name='email' required>
     <br>
     <input type="submit" name="submit" value="again">

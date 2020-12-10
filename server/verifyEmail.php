@@ -39,7 +39,7 @@ Username: '.$_SESSION['login'].'
 ------------------------
   
 Please click this link to activate your account:
-http://localhost:8080/Camagru/login/verify.php?email='.$_POST['email'].'&hash='.$hash.'
+http://localhost:8080/Camagru/server/verify.php?email='.$_POST['email'].'&hash='.$hash.'
   
 '; // Our message above including the link
                       

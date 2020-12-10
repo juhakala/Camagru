@@ -12,7 +12,6 @@ if (isset($_POST['login']) && isset($_POST['passwd'])) {
             if (hash('whirlpool', $_POST['passwd']) ===  $row['passwd']) {
                 $_SESSION['login'] = $row['login'];
                 $_SESSION['active'] = $row['active'];
-                //header('location: ../index.php');
                 echo "success";
             } else {
                 echo "error: passwd did not match";
@@ -20,10 +19,6 @@ if (isset($_POST['login']) && isset($_POST['passwd'])) {
             }
         }
         else {
-    //        header('location: ../index.php?error=2&string=no_match');
-            //header('location: ../index.php');
-            //echo "<script>console.log('hello');</script>";
-            //echo "<script type='text/javascript' src='js/index.js'>messageBox('not_match');</script>";
             echo "error: no user named: " . $_POST['login'];
         }
     } catch (PDOException $msg) {

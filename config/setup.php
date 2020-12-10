@@ -20,9 +20,19 @@ try {
 
     $db->exec('CREATE TABLE IF NOT EXISTS gallery (
         id int(9) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        `name` varchar(255) NOT NULL,
         `login` varchar(255) NOT NULL,
-        `likes` int(9) UNSIGNED NOT NULL
+        `likes` int(9) UNSIGNED NOT NULL default 0,
+        `width` int(9) UNSIGNED NOT NULL,
+        `height` int(9) UNSIGNED NOT NULL
         )');
+    $db->exec("INSERT IGNORE INTO gallery (name, login, width, height) VALUES ('dog1.jpg', 'admin', '4000', '5000')");
+    $db->exec("INSERT IGNORE INTO gallery (name, login, width, height) VALUES ('dog2.jpg', 'admin', '3024', '4032')");
+    $db->exec("INSERT IGNORE INTO gallery (name, login, width, height) VALUES ('dog3.jpg', 'admin', '4978', '3734')");
+    $db->exec("INSERT IGNORE INTO gallery (name, login, width, height) VALUES ('dog4.jpg', 'admin', '7375', '4919')");
+    $db->exec("INSERT IGNORE INTO gallery (name, login, width, height) VALUES ('dog5.jpg', 'admin', '5184', '3456')");
+    $db->exec("INSERT IGNORE INTO gallery (name, login, width, height) VALUES ('dog6.jpg', 'admin', '3648', '5472')");
+
 } catch( PDOException $Exception ) {
     echo 'Error: '.$Exception->getMessage();
     die();

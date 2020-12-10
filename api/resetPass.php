@@ -1,4 +1,4 @@
-<form action='../login/confirmReset.php' method='post'>
+<form action='../server/confirmReset.php' method='post'>
     <input type='hidden' value='<?php echo $_POST['email']; ?>' name='email' readonly>
     <input type='hidden' value='<?php echo $_POST['hash']; ?>' name='hash' readonly>
     <input type='password' placeholder='Passwd' name='passwd' required>

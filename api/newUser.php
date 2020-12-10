@@ -7,5 +7,5 @@
     <br>
     <input type='password' placeholder='Again Password' name='passwdAgain' required>
     <br>
-    <input id='formUrl' type="submit" value="ok" name="login/userCreation.php">
+    <input id='formUrl' type="submit" value="ok" name="server/userCreation.php">
 </form>

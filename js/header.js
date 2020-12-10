@@ -53,7 +53,7 @@ function userLogoutPage() {
     sessionStorage.setItem('page', 'gallery.php');
     sessionStorage.setItem('form', 'js/gallery.js');
     console.log(sessionStorage.getItem('page'));
-    request.open('GET', 'login/logout.php', true);
+    request.open('GET', 'server/logout.php', true);
     request.onload = function() {};
     request.send();
     document.location.reload(true);

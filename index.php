@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once('config/run_setup.php');
-require_once('login/verifySessionLogin.php');
+require_once('server/verifySessionLogin.php');
 ?>
 
 <!doctype html>
@@ -13,6 +13,7 @@ require_once('login/verifySessionLogin.php');
         <link rel="stylesheet" href="css/styleindex.css">
         <link rel="stylesheet" href="css/header.css">
         <link rel="stylesheet" href="css/edit.css">
+        <link rel="stylesheet" href="css/gallery.css">
 
     </head>
     <body>
