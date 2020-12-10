@@ -18,4 +18,12 @@
     max-height: 50vh;
     max-width: 74vw;
 }
+.hoverpic {
+    position: relative;
+    display: none;
+    color: red;
+    font-weight: bold;
+    margin-left: 50%;
+    margin-top: -25vh;
+}
 

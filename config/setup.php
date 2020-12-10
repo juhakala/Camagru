@@ -26,7 +26,7 @@ try {
         `width` int(9) UNSIGNED NOT NULL,
         `height` int(9) UNSIGNED NOT NULL
         )');
-    $db->exec("INSERT IGNORE INTO gallery (name, login, width, height) VALUES ('dog1.jpg', 'admin', '4000', '5000')");
+    $db->exec("INSERT IGNORE INTO gallery (name, login, likes, width, height) VALUES ('dog1.jpg', 'admin', 12, '4000', '5000')");
     $db->exec("INSERT IGNORE INTO gallery (name, login, width, height) VALUES ('dog2.jpg', 'admin', '3024', '4032')");
     $db->exec("INSERT IGNORE INTO gallery (name, login, width, height) VALUES ('dog3.jpg', 'admin', '4978', '3734')");
     $db->exec("INSERT IGNORE INTO gallery (name, login, width, height) VALUES ('dog4.jpg', 'admin', '7375', '4919')");

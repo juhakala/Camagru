@@ -7,20 +7,52 @@ var picture_id = 0;
 var data = "start="+picture_id;
 function makeCallForPics() {
     data = "start="+picture_id;
-    console.log('make call: ' + data);
     var xhr = new XMLHttpRequest();
     xhr.open("post", 'server/fetchGallery.php', true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onload = function(event){ 
         if (event.target.response.startsWith('error')) {
             messageBox(event.target.response, 'red');
-            picture_id = 0; //for infinity scroll
+            // atm shits on event listeners -> maybe add counter to elem ids so private listeners? 
+            // picture_id = 0; //for infinity scroll
+    
         } else {
             resp = JSON.parse(event.target.response);
             i = 0;
             while (resp[i]) {
-//                console.log(resp[i]['name']);
-                content.innerHTML+= '<div class="galdiv"><img src="img/'+resp[i++]['name']+'" class="galpicture"></div>';
+//              console.log(resp[i]);
+                var parent = document.createElement("div");
+                parent.classList.add("galdiv");
+                var child = document.createElement("IMG");
+                child.src = 'img/'+resp[i]['name'];
+                child.classList.add("galpicture");
+                child.setAttribute("id", "picinstance"+resp[i]['id']);
+                var likes = document.createElement("p");
+                likes.classList.add("hoverpic");
+                likes.setAttribute("id", "hoverinstance"+resp[i]['id']);
+                likes.innerHTML = resp[i]['likes'];
+                content.appendChild(parent);
+                parent.appendChild(child);
+                parent.appendChild(likes);
+//                console.log('picinstance'+resp[i]['id']);
+                var elem = document.getElementById('picinstance'+resp[i]['id']);
+                var p_elem = document.getElementById('hoverinstance'+resp[i]['id']);
+                console.log(p_elem);
+                elem.addEventListener("mouseenter", function( event ) {
+                    //console.log(event.target.id.replace('pic', 'hover'));
+                    event.target.style.opacity = '0.3';
+                    document.getElementById(event.target.id.replace('pic', 'hover')).style.display = 'block';
+                });
+                elem.addEventListener("mouseleave", function( event ) {  
+                    event.target.style.opacity = '1';
+                    document.getElementById(event.target.id.replace('pic', 'hover')).style.display = 'none';
+                });
+
+                elem.addEventListener('click', function( event ) { 
+                    console.log('soon');
+
+                });
+                i++;
             }
             picture_id += i;
         }
@@ -43,3 +75,8 @@ function scroller() {
     }
 }
 addEvent(wrapper,"scroll",scroller);
+
+//function hoverpicture() {
+  //  console.log('here');
+    //this.style.opacity = '0.5';
+//}
