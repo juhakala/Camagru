@@ -39,8 +39,8 @@ try {
         `author` varchar(255) NOT NULL,
         `text` TEXT NOT NULL
         )');
-    $db->exec("INSERT IGNORE INTO comments (gallery_id, author, text) VALUES (1, 'admin', 'sopo koira')");
-    $db->exec("INSERT IGNORE INTO comments (gallery_id, author, text) VALUES (1, 'test', 'kehuu omaa koiraansa sopoks? weird flex bro')");
+    //$db->exec("INSERT IGNORE INTO comments (gallery_id, author, text) VALUES (1, 'admin', 'sopo koira')");
+    //$db->exec("INSERT IGNORE INTO comments (gallery_id, author, text) VALUES (1, 'test', 'kehuu omaa koiraansa sopoks? weird flex bro')");
 
 
 

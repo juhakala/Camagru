@@ -28,11 +28,6 @@ function slaves(str, form) {
         }
     };
     request.send();
-    //if (form != 'null') {
-        //console.log('inside form is: ' + form);
-    //    formPage(form);
-    //}
-    //console.log('end');
 }
 
 function formPage(str) {

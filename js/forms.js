@@ -22,8 +22,8 @@ document.forms['forms'].addEventListener('submit', (event) => {
             sessionStorage.setItem('form', 'js/gallery.js');
             sessionStorage.setItem('message', event.target.response);
             sessionStorage.setItem('color', 'green');
-            window.location.href = 'http://localhost:8080/Camagru/index.php';
-            //document.location.reload(true);
+            //window.location.href = 'http://localhost:8080/Camagru/index.php';
+            document.location.reload(true);
         } else {
             messageBox(event.target.response, 'red');
         }

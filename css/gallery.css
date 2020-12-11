@@ -41,9 +41,9 @@
     max-height: 80vh;
 }
 .commentcont {
-    position: absolute;
-    margin-left: 41vw;
-    top: 0;
+    #position: absolute;
+    #margin-left: 41vw;
+    #top: 0;
 }
 .commentbackground {
     position: absolute;
@@ -52,4 +52,19 @@
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.6)
+}
+.commentcont textarea {
+    margin-top: 10px;
+    resize: none;
+    width: 48vw;
+}
+.commentcont input {
+    display: none;
+}
+.commentdivoverflow {
+    height: 100%;
+    overflow: auto;
+    position: absolute;
+    margin-left: 41vw;
+    top: 0;
 }

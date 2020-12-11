@@ -3,14 +3,12 @@ function fade(parent, element) {
     var timer = setInterval(function () {
         if (op <= 0.1){
             clearInterval(timer);
-            element.style.display = 'none';
             document.body.removeChild(parent);
         }
         element.style.opacity = op;
         element.style.filter = 'alpha(opacity=' + op * 100 + ")";
         op -= op * 0.1;
     }, 300);
-    //document.body.removeChild(parent);
 }
 function messageBox(str, color) {
     var element = document.createElement('div');
@@ -30,5 +28,4 @@ if (sessionStorage.getItem('message') != null) {
     messageBox(sessionStorage.getItem('message'), sessionStorage.getItem('color'));
     sessionStorage.removeItem('message');
     sessionStorage.removeItem('color');
-    //console.log('in messages');
 }

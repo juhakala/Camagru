@@ -13,8 +13,11 @@ function makeCallForPics() {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onload = function(event){ 
         if (event.target.response.startsWith('error')) {
-            messageBox(event.target.response, 'red');
+            //if picture is is not resetting then this is good
+            //messageBox(event.target.response, 'red');
+
             // atm shits on event listeners -> maybe add counter to elem ids so private listeners? 
+            // works now, messages are shit thou
             picture_id = 0; //for infinity scroll
     
         } else {
@@ -29,6 +32,7 @@ function makeCallForPics() {
                 child.classList.add("galpicture");
                 child.setAttribute("id", "picinstance"+resp[i]['id'] + count);
                 child.setAttribute("alt", resp[i]['id']);
+                child.setAttribute("title", resp[i]['name']);
                 var likes = document.createElement("p");
                 likes.classList.add("hoverpic");
                 likes.setAttribute("id", "hoverinstance"+resp[i]['id'] + count);
@@ -54,10 +58,12 @@ function makeCallForPics() {
                     var parent = document.createElement("div");
                     parent.classList.add("commentbackground");
                     var element = document.createElement("div");
+                    element.classList.add("clickarea");
                     element.classList.add("clickcont");
                     var child = document.createElement("IMG");
+                    child.classList.add("clickarea");
                     child.classList.add("clickpicture");
-                    child.src = event.target.src.slice(30);
+                    child.src = 'img/' + event.target.title;
                     element.appendChild(child);
                     parent.appendChild(element);
                     element.appendChild(get_comments(event.target.alt));
@@ -91,7 +97,7 @@ function scroller() {
 addEvent(wrapper,"scroll",scroller);
 
 window.onclick = function(e) {
-    if (!e.target.matches('.clickcont')) {
+    if (!e.target.matches('.clickarea')) {
         var show = document.getElementsByClassName("commentbackground")[0];
         if (close == true) {
             if (show) {
@@ -119,12 +125,63 @@ function get_comments(id) {
             while (resp[i]) {
 //                console.log(resp[i]);
                 var elem = document.createElement("p");
+                elem.classList.add("clickarea");
                 elem.innerHTML = resp[i]['author'] + ' : [' + resp[i]['text'] + ']';
                 child.appendChild(elem);
                 i++;
             }
         }
+        var form = document.createElement("form");
+        form.setAttribute("id", 'forms');
+        var elem = document.createElement("textarea");
+        elem.classList.add("clickarea");
+        elem.setAttribute("name", 'comment');
+        elem.setAttribute("id", 'commenttextarea');
+        elem.required = true;
+        form.appendChild(elem);
+        var pic_id = document.createElement("input");
+        pic_id.setAttribute("type", 'text');
+        pic_id.setAttribute("value", id);
+        pic_id.setAttribute("name", 'id');
+        pic_id.required = true;
+        form.appendChild(pic_id);
+        var sub = document.createElement("input");
+        sub.classList.add("clickarea");
+        sub.setAttribute("type", 'submit');
+        sub.setAttribute("value", 'comment');
+        sub.setAttribute("name", 'server/writeComment.php');
+        sub.setAttribute("id", 'formUrl');
+        form.appendChild(sub);
+        child.appendChild(form);
+        document.forms['forms'].addEventListener('submit', (event) => {
+            event.preventDefault();
+        });
+        document.getElementById('commenttextarea').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                event.preventDefault();
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", document.getElementById("formUrl").name); 
+                xhr.onload = function(event){ 
+                    if (event.target.response.startsWith('success')) {
+                        messageBox(event.target.response, 'green');
+                        var parent = document.getElementsByClassName('clickarea')[0];
+                        if (parent != null) {
+                            parent.removeChild(document.getElementsByClassName('commentdivoverflow')[0]);
+                            parent.appendChild(get_comments(id));
+                        }
+//                        get_comments(id);
+                    } else {
+                        messageBox(event.target.response, 'red');
+                    }
+                };
+                var formData = new FormData(document.getElementById("forms"));
+                xhr.send(formData);
+            }
+        });
     }
     xhr.send("gallery_id=" + id);
-    return (child);
+    var wrap = document.createElement("div");
+    wrap.classList.add("commentdivoverflow");
+    wrap.appendChild(child);
+    return (wrap);
 }
