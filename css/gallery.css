@@ -1,21 +1,29 @@
+#ontop {
+    background: #EEE;
+    width: fit-content;
+    margin: auto;
+    padding: 3vh;
+    margin-top: 10vh;
+}
 #wrapper {
     height: 60vh;
-    width: 74vw;
-    margin: 10vw;
+    width: fit-content;
+    margin: auto;
     overflow: auto;
     background: #EEE;
-    border: solid 3vw #EEE;
+}
+#content {
+    overflow: hidden;
 }
 .galdiv {
-    height: 50vh;
-    #margin-left: 50%;
     width: fit-content;
-    margin-bottom: 5%;
+    margin: auto;
+    margin-bottom: 3vh;
 }
 .galpicture {
-    #margin-left: -50%;
-    max-height: 50vh;
+    max-height: 40vh;
     max-width: 74vw;
+    display: block;
 }
 .hoverpic {
     position: relative;
@@ -23,22 +31,36 @@
     color: red;
     font-weight: bold;
     margin-left: 50%;
-    margin-top: -25vh;
+    margin-top: -20vh;
+    margin-bottom: 20vh;
+    padding-bottom: 1.5vh;
+    line-height: 1.5vh;
 }
 .clickcont {
     position: absolute;
-    top: 10vh;
+    top: 17vh;
     left: 5vw;
     max-width: 90vw;
-    max-height: 80vh;
+    max-height: 50vh;
     min-width: 90vw;
-    #min-height: 80vh;
+    min-height: 50vh;
     background: green;
     opacity: 1.0;
 }
+.clickpicturebackground {
+    position: relative;
+    background: black;
+    height: 50vh;
+    width: 40vw;
+}
 .clickpicture {
+    position: absolute;
     max-width: 40vw;
-    max-height: 80vh;
+    max-height: 50vh;
+    display: block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .commentcont {
     #position: absolute;
@@ -57,6 +79,9 @@
     margin-top: 10px;
     resize: none;
     width: 48vw;
+    margin-bottom: 10px;
+    position: relative;
+
 }
 .commentcont input {
     display: none;

@@ -1,14 +1,17 @@
 function fade(parent, element) {
-    var op = 1;  // initial opacity
-    var timer = setInterval(function () {
-        if (op <= 0.1){
-            clearInterval(timer);
-            document.body.removeChild(parent);
-        }
-        element.style.opacity = op;
-        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-        op -= op * 0.1;
-    }, 300);
+    var op = 1;  // initial opacity setTimeout(function () {
+    var timer = setTimeout(function () {
+        var intimer = setInterval(function () {
+            if (op <= 0.1){
+                clearInterval(intimer);
+                document.body.removeChild(parent);
+                return ;
+            }
+            element.style.opacity = op;
+            element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+            op -= op * 0.1;
+        }, 40);
+    }, 1000);
 }
 function messageBox(str, color) {
     var element = document.createElement('div');
