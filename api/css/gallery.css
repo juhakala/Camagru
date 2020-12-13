@@ -1,0 +1,95 @@
+#ontop {
+    background: #EEE;
+    width: fit-content;
+    margin: auto;
+    padding: 3vh;
+    margin-top: 10vh;
+}
+#wrapper {
+    height: 60vh;
+    width: fit-content;
+    margin: auto;
+    overflow: auto;
+    background: #EEE;
+}
+#content {
+    overflow: hidden;
+}
+.galdiv {
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 3vh;
+}
+.galpicture {
+    max-height: 40vh;
+    max-width: 74vw;
+    display: block;
+}
+.hoverpic {
+    position: relative;
+    display: none;
+    color: red;
+    font-weight: bold;
+    margin-left: 50%;
+    margin-top: -20vh;
+    margin-bottom: 20vh;
+    padding-bottom: 1.5vh;
+    line-height: 1.5vh;
+}
+.clickcont {
+    position: absolute;
+    top: 17vh;
+    left: 5vw;
+    max-width: 90vw;
+    max-height: 50vh;
+    min-width: 90vw;
+    min-height: 50vh;
+    background: green;
+    opacity: 1.0;
+}
+.clickpicturebackground {
+    position: relative;
+    background: black;
+    height: 50vh;
+    width: 40vw;
+}
+.clickpicture {
+    position: absolute;
+    max-width: 40vw;
+    max-height: 50vh;
+    display: block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.commentcont {
+    #position: absolute;
+    #margin-left: 41vw;
+    #top: 0;
+}
+.commentbackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6)
+}
+.commentcont textarea {
+    margin-top: 10px;
+    resize: none;
+    width: 48vw;
+    margin-bottom: 10px;
+    position: relative;
+
+}
+.commentcont input {
+    display: none;
+}
+.commentdivoverflow {
+    height: 100%;
+    overflow: auto;
+    position: absolute;
+    margin-left: 41vw;
+    top: 0;
+}

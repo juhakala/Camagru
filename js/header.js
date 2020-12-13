@@ -1,13 +1,13 @@
-function dropdown() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-window.onclick = function(e) {
-    if (!e.target.matches('.dropbtn')) {
-        var myDropdown = document.getElementById("myDropdown");
-        if (myDropdown.classList.contains('show'))
-            myDropdown.classList.remove('show');
-    }
-}
+//function dropdown() {
+//    document.getElementById("myDropdown").classList.toggle("show");
+//}
+//window.onclick = function(e) {
+//    if (!e.target.matches('.dropbtn')) {
+//        var myDropdown = document.getElementById("myDropdown");
+//        if (myDropdown.classList.contains('show'))
+//            myDropdown.classList.remove('show');
+//    }
+//}
 
 // masters function to handle middle class filling by xmlhttprequests
 var request = new XMLHttpRequest();
@@ -48,7 +48,7 @@ function userLogoutPage() {
     sessionStorage.setItem('page', 'gallery.php');
     sessionStorage.setItem('form', 'js/gallery.js');
     console.log(sessionStorage.getItem('page'));
-    request.open('GET', 'server/logout.php', true);
+    request.open('GET', 'server/UM/logout.php', true);
     request.onload = function() {};
     request.send();
     document.location.reload(true);

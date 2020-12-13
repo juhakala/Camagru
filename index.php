@@ -10,10 +10,11 @@ require_once('server/verifySessionLogin.php');
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Camagru</title>
-        <link rel="stylesheet" href="css/styleindex.css">
-        <link rel="stylesheet" href="css/header.css">
-        <link rel="stylesheet" href="css/edit.css">
-        <link rel="stylesheet" href="css/gallery.css">
+        <link rel="stylesheet" href="api/css/styleindex.css">
+        <link rel="stylesheet" href="api/css/header.css">
+        <link rel="stylesheet" href="api/css/edit.css">
+        <link rel="stylesheet" href="api/css/gallery.css">
+        <link rel="stylesheet" href="api/css/userSettings.css">
 
     </head>
     <body>
@@ -34,7 +35,7 @@ require_once('server/verifySessionLogin.php');
         var login = '<?php echo $_SESSION['login']; ?>';
         var active = '<?php echo $_SESSION['active']; ?>';
 
-        var url = (sessionStorage.getItem('page') == 'null' || sessionStorage.getItem('page') == null) ? 'gallery.php' : sessionStorage.getItem('page');
+        var url = (sessionStorage.getItem('page') == 'null' || sessionStorage.getItem('page') == null || sessionStorage.getItem('page') == 'api/UM/verifyAgain.php') ? 'gallery.php' : sessionStorage.getItem('page');
         var form = url == 'gallery.php' ? 'js/gallery.js' : sessionStorage.getItem('form');
         window.addEventListener('DOMContentLoaded', (event) => {
             masters(url, form); //for div appending
@@ -42,8 +43,10 @@ require_once('server/verifySessionLogin.php');
             function masters(str, form) {
                 //console.log('str is: ' + str);
                 //console.log('form is: ' + form);
-                if (login != '' && active == 0) //always redirect to verifyAgain if not active
-                    slaves('api/verifyAgain.php', 'null');
+                if (login != '' && active == 0) {//always redirect to verifyAgain if not active
+                    slaves('api/UM/verifyAgain.php', 'null');
+                    console.log('here');
+                }
                 else
                     slaves(str, form);
             }
