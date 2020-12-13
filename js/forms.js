@@ -18,12 +18,13 @@ document.forms['forms'].addEventListener('submit', (event) => {
     xhr.open("POST", document.getElementById("formUrl").name); 
     xhr.onload = function(event){ 
         if (event.target.response.startsWith('success')) {
-            sessionStorage.setItem('page', 'gallery.php');
+            sessionStorage.setItem('page', 'api/gallery.php');
             sessionStorage.setItem('form', 'js/gallery.js');
             sessionStorage.setItem('message', event.target.response);
             sessionStorage.setItem('color', 'green');
             //window.location.href = 'http://localhost:8080/Camagru/index.php';
-            document.location.reload(true);
+            window.location.href = window.location.href
+            //document.location.reload(true);
             //messageBox(event.target.response, 'green');
         } else {
             messageBox(event.target.response, 'red');

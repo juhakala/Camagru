@@ -1,5 +1,5 @@
 <div class="navbar">
-    <div class='choose' onclick='masters("gallery.php", "js/gallery.js")'>Gallery</div>
+    <div class='choose' onclick='masters("api/gallery.php", "js/gallery.js")'>Gallery</div>
     <?php if (isset($_SESSION['login']) && $_SESSION['login'] != "") { ?>
         <div class='login' onclick='userLogoutPage()'>Logout</div>
         <div class='login' onclick='masters("api/UM/userSettings.php", "js/userSettings.js")'><?php echo $_SESSION['login']; ?> &#9881;</div>

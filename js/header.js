@@ -45,7 +45,7 @@ function formPage(str) {
     js_request.send();
 }
 function userLogoutPage() {
-    sessionStorage.setItem('page', 'gallery.php');
+    sessionStorage.setItem('page', 'api/gallery.php');
     sessionStorage.setItem('form', 'js/gallery.js');
     console.log(sessionStorage.getItem('page'));
     request.open('GET', 'server/UM/logout.php', true);

@@ -3,7 +3,6 @@ session_start();
 require_once('config/run_setup.php');
 require_once('server/verifySessionLogin.php');
 ?>
-
 <!doctype html>
 <html lang="en">
     <head>
@@ -35,21 +34,19 @@ require_once('server/verifySessionLogin.php');
         var login = '<?php echo $_SESSION['login']; ?>';
         var active = '<?php echo $_SESSION['active']; ?>';
 
-        var url = (sessionStorage.getItem('page') == 'null' || sessionStorage.getItem('page') == null || sessionStorage.getItem('page') == 'api/UM/verifyAgain.php') ? 'gallery.php' : sessionStorage.getItem('page');
-        var form = url == 'gallery.php' ? 'js/gallery.js' : sessionStorage.getItem('form');
+        var url = (sessionStorage.getItem('page') == 'null' || sessionStorage.getItem('page') == null || sessionStorage.getItem('page') == 'api/UM/verifyAgain.php') ? 'api/gallery.php' : sessionStorage.getItem('page');
+        var form = url == 'api/gallery.php' ? 'js/gallery.js' : sessionStorage.getItem('form');
         window.addEventListener('DOMContentLoaded', (event) => {
             masters(url, form); //for div appending
         });
-            function masters(str, form) {
-                //console.log('str is: ' + str);
-                //console.log('form is: ' + form);
-                if (login != '' && active == 0) {//always redirect to verifyAgain if not active
-                    slaves('api/UM/verifyAgain.php', 'null');
-                    console.log('here');
-                }
-                else
-                    slaves(str, form);
-            }
+        function masters(str, form) {
+            if (login != '' && active === '0') {//always redirect to verifyAgain if not active
+                slaves('api/UM/verifyAgain.php', 'null');
+<?php echo "} else if ('{$_SESSION['login']}' != '' && '{$_POST['email']}' != '' && '{$_POST['hash']}' != '') {
+                slaves('api/UM/resetPass.php', 'js/forms.js');";?>
+            } else
+                slaves(str, form);
+        }
         var message = '<?php echo $_GET['message']; ?>';
         if (message != "")
             messageBox(message, 'green'); 

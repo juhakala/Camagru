@@ -2,7 +2,7 @@
 session_start();
 require_once('../../config/connect.php');
 
-if (isset($_POST['name']) && isset($_SESSION['login']) && $_SESSION['login'] != "" && isset($_POST['passwd'])) {
+if (isset($_POST['name']) && isset($_SESSION['login']) && $_SESSION['login'] != "" && isset($_SESSION['active']) && $_SESSION['active'] === '1' && isset($_POST['passwd'])) {
     try {
         $stmt = $db->prepare('SELECT * from `users` WHERE login = :log');
         $stmt->bindParam(':log', $_SESSION['login']);

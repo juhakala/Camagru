@@ -47,5 +47,4 @@ if (isset($_POST['gallery_id'])) {
         echo 'Error: '.$msg->getMessage();
         die();
     }
-
 }

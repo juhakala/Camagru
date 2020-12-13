@@ -1,9 +1,7 @@
-<form action='../../server/UM/confirmReset.php' method='post'>
-    <input type='hidden' value='<?php echo $_POST['email']; ?>' name='email' readonly>
-    <input type='hidden' value='<?php echo $_POST['hash']; ?>' name='hash' readonly>
+<form id='forms'>
     <input type='password' placeholder='Passwd' name='passwd' required>
     <br>
     <input type='password' placeholder='PasswdAgain' name='passwdAgain' required>
     <br>
-    <input type="submit" value="ok">
+    <input id='formUrl' type="submit" name="server/UM/confirmReset.php">
 </form>

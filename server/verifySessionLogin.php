@@ -11,10 +11,13 @@ if (isset($_SESSION['login']) && $_SESSION['login'] != "") {
             $_SESSION['active'] = $row['active'];
         else {
             $_SESSION['login'] = "";
+            $_SESSION['active'] = "";
         }
     } catch( PDOException $Exception ) {
         echo 'Error: '.$Exception->getMessage();
         die();
     }
-} else
+} else {
     $_SESSION['login'] = "";
+    $_SESSION['active'] = "";
+}
