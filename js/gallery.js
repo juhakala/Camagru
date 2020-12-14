@@ -5,12 +5,10 @@ var test = document.getElementById("test");
 
 function add_hover_effect(elem) {
     elem.addEventListener("mouseenter", function( event ) {
-        event.target.style.opacity = '0.3';
-        document.getElementById(event.target.id.replace('pic', 'hover')).style.display = 'block';
+        event.target.style.opacity = '0.8';
     });
     elem.addEventListener("mouseleave", function( event ) {  
         event.target.style.opacity = '1';
-        document.getElementById(event.target.id.replace('pic', 'hover')).style.display = 'none';
     });
 }
 function child_to_parent(parent, child_type, class_names, attributes, content) {
@@ -30,9 +28,8 @@ function child_to_parent(parent, child_type, class_names, attributes, content) {
     return (child);
 }
 var count = 0;
+var picture_id = 0;
 function makeCallForPics() {
-    //var count = 0;
-    var picture_id = 0;
     var xhr = new XMLHttpRequest();
     xhr.open("post", 'server/fetchGallery.php', true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -50,7 +47,6 @@ function makeCallForPics() {
             while (resp[++i]) {
                 var parent = child_to_parent(content, 'div', ['galdiv'], null, null);
                 child_to_parent(parent, 'img', ['galpicture'], ['id', "picinstance"+resp[i]['id'] + count, 'title', resp[i]['name'], 'alt', resp[i]['id'], 'src', 'img/'+resp[i]['name']], null);
-                child_to_parent(parent, 'span', ['hoverpic'], ['id', "hoverinstance"+resp[i]['id'] + count], resp[i]['likes']);
                 var elem = document.getElementById('picinstance'+resp[i]['id'] + count);
                 var p_elem = document.getElementById('hoverinstance'+resp[i]['id'] + count++);
                 add_hover_effect(elem);
@@ -58,6 +54,9 @@ function makeCallForPics() {
                     var parent = child_to_parent(document.body, 'div', ['commentbackground'], null, null);
                     var element = child_to_parent(parent, 'div', ['clickcont'], null, null);
                     var img_wrap = child_to_parent(element, 'div', ['clickpicturebackground'], null, null);
+                    img_wrap.addEventListener("dblclick", function() {
+                        like_picture(event.target.alt);
+                      });
                     var child = child_to_parent(img_wrap, 'img', ['clickpicture'], null, null);
                     child.src = 'img/' + event.target.title;
                     var wrap = child_to_parent(element, 'div', ['commentdivoverflow'], null, null);
@@ -78,6 +77,27 @@ window.onclick = function(e) {
     }
 }
 
+function like_picture(id) {
+    var like = new XMLHttpRequest();
+    like.open("post", 'server/fetchGallery.php', true);
+    like.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    like.onload = function(event){ 
+        if (!event.target.response.startsWith('error')) {
+            last_score = document.getElementById('likedlike').innerHTML;
+            new_score = parseInt(last_score,10) + 1;
+            document.getElementById('likedlike').innerHTML = new_score;
+            messageBox(event.target.response, 'green');
+        } else
+            messageBox(event.target.response, 'red');
+
+    }
+    like.send("like_id=" + id);
+}
+
+function show_likes(resp) {
+    var likes = child_to_parent(document.getElementsByClassName('clickpicturebackground')[0], 'div', ['likes'], null, '	&#10084; <span id="likedlike">' + resp['likes'] + '</span> &#128172; ' + resp['comments']);
+}
+
 function get_comments(id) {
     var child = child_to_parent(null, 'div', ['commentcont'], null, null);
     var xhr = new XMLHttpRequest();
@@ -87,11 +107,12 @@ function get_comments(id) {
         if (!event.target.response.startsWith('error')) {
             resp = JSON.parse(event.target.response);
             i = 0;
-            while (resp[i]) {
+            while (resp[i + 1]) {
                 var elem = child_to_parent(child, 'p', null, null, null);
                 elem.innerHTML = resp[i]['author'] + ' : [' + resp[i]['text'] + ']';
                 i++;
             }
+            show_likes(resp[i]);
         } else {
             //console.log(event.target.response);
         }

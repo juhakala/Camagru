@@ -62,11 +62,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.commentcont {
-    #position: absolute;
-    #margin-left: 41vw;
-    #top: 0;
-}
 .commentbackground {
     position: absolute;
     top: 0;
@@ -92,4 +87,17 @@
     position: absolute;
     margin-left: 41vw;
     top: 0;
+}
+.likes {
+    color: red;
+    font-weight: bold;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-size: 26px;
+    line-height: 26px;
+    padding-bottom: 4px;
+    padding-top: 8px;
+    margin-bottom: -1px;
+    background-color: rgba(0, 0, 0, 0.6)
 }
