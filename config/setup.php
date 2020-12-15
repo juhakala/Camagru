@@ -12,6 +12,7 @@ try {
         `passwd` varchar(255) NOT NULL,
         `email` varchar(255) NOT NULL unique,
         `hash` varchar(32) NOT NULL,
+        `mailing` int(1) NOT NULL DEFAULT "1",
         `active` int(1) NOT NULL DEFAULT "0"
     )');
     $pass = hash('whirlpool', '123');

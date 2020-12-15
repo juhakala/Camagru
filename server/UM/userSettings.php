@@ -11,7 +11,21 @@ if (isset($_POST['name']) && isset($_SESSION['login']) && $_SESSION['login'] != 
         if (!$row) {
             echo "error : Cheater!";
         } else if ($row['passwd'] !== hash('whirlpool', $_POST['passwd'])) {
-            echo "error : passwd did not match one in database";
+            if ($_POST['name'] === 'commentMail') {
+                if (isset($_POST['changeMail']) && $_POST['changeMail'] == 'change')
+                    $stmt = $db->prepare('UPDATE `users` SET mailing = 1 WHERE login = :log');
+                else
+                    $stmt = $db->prepare('UPDATE `users` SET mailing = 0 WHERE login = :log');
+                $stmt->bindParam(':log', $_SESSION['login']);
+                $stmt->execute();
+                echo "success : mailing preference changed";
+            } else if ($_POST['name'] == 'checked') {
+                if ($row['mailing'] == 1)
+                    echo "success : 1";
+                else
+                    echo " success : 0";
+            } else
+                echo "error : passwd did not match one in database";
         } else if ($_POST['name'] === 'passChange' && isset($_POST['newPasswd']) && isset($_POST['newPasswdAgain']) && $_POST['newPasswd'] === $_POST['newPasswdAgain']) {
             $stmt = $db->prepare('UPDATE `users` SET passwd = :pass WHERE login = :log');
             $stmt->bindParam(':log', $_SESSION['login']);

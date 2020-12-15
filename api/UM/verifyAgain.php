@@ -1,5 +1,6 @@
-<form action='server/UM/verifyEmail.php'>
+<form id='forms'>
+    <input type='hidden' name='verifyAgain' value='again' readonly>
     <input type='email' placeholder='Email' name='email' required>
     <br>
-    <input type="submit" name="submit" value="again">
+    <input id='formUrl' type="submit" name="server/UM/verifyEmail.php">
 </form>

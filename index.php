@@ -41,7 +41,7 @@ require_once('server/verifySessionLogin.php');
         });
         function masters(str, form) {
             if (login != '' && active === '0') {//always redirect to verifyAgain if not active
-                slaves('api/UM/verifyAgain.php', 'null');
+                slaves('api/UM/verifyAgain.php', 'js/forms.js');
 <?php echo "} else if ('{$_SESSION['login']}' != '' && '{$_POST['email']}' != '' && '{$_POST['hash']}' != '') {
                 slaves('api/UM/resetPass.php', 'js/forms.js');";?>
             } else

@@ -5,6 +5,7 @@
             <div class='change' onclick='createForm("emailChange")'>ChangeEmail</div>
             <div class='change' onclick='createForm("loginChange")'>ChangeLogin</div>
             <div class='change' onclick='createForm("loginDelete")'>DeleteLogin</div>
+            <div class='change' onclick='createForm("commentMail")'>CommentMail</div>
         </div>
         <div class='formParent'>
         </div>

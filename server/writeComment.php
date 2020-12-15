@@ -15,7 +15,25 @@ if (isset($_POST['id']) && $_POST['id'] != '' && isset($_POST['comment']) && tri
         $stmt->bindParam(':log', $_SESSION['login']);
         $stmt->bindParam(':comment', trim($_POST['comment']));
         $stmt->execute();
-        //$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $stmt = $db->prepare('SELECT email, mailing FROM users INNER JOIN gallery ON users.login = gallery.login');
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row && $row['mailing'] == 1) {
+            $to = $row['email']; // Send email to our user
+            $subject = 'Comment on picture'; // Give the email a subject 
+            $message = '
+              
+            user: '.$_SESSION['login'].' commented on your picture(id: '.$_POST['id'].').
+            ---------------------
+            \''.trim($_POST['comment']).'\'
+            ---------------------
+              
+            '; // Our message above including the link
+                                  
+            $headers = 'From:noreply@localhost.com' . "\r\n"; // Set from headers
+            mail($to, $subject, $message, $headers);
+        }
     } catch (PDOException $msg) {
     	echo 'Error: '.$msg->getMessage();
     	die();

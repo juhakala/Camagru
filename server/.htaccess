@@ -1,4 +1,5 @@
 RewriteEngine On
 RewriteCond %{HTTP_REFERER} !^http://localhost:8080/Camagru/ [NC]
 RewriteCond %{REQUEST_URI} !/(reset\.php|reset\.php/)$ [NC]
+RewriteCond %{REQUEST_URI} !/(verify\.php|verify\.php/)$ [NC]
 RewriteRule .*\.(php|php/)$ - [NC,F]
