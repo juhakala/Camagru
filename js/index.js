@@ -32,3 +32,6 @@ if (sessionStorage.getItem('message') != null) {
     sessionStorage.removeItem('message');
     sessionStorage.removeItem('color');
 }
+if (sessionStorage.getItem('css_change_night') != null) {
+    document.body.style.background = '#020321';
+}

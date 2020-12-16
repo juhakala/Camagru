@@ -11,6 +11,7 @@ require_once('server/verifySessionLogin.php');
         <title>Camagru</title>
         <link rel="stylesheet" href="api/css/styleindex.css">
         <link rel="stylesheet" href="api/css/header.css">
+        <link rel="stylesheet" href="api/css/footer.css">
         <link rel="stylesheet" href="api/css/edit.css">
         <link rel="stylesheet" href="api/css/gallery.css">
         <link rel="stylesheet" href="api/css/userSettings.css">
@@ -30,6 +31,7 @@ require_once('server/verifySessionLogin.php');
         </div>
     <script src='js/index.js'></script>
     <script src='js/header.js'></script>
+    <script src='js/footer.js'></script>
     <script>
         var login = '<?php echo $_SESSION['login']; ?>';
         var active = '<?php echo $_SESSION['active']; ?>';

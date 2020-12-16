@@ -96,6 +96,8 @@ function like_picture(id) {
 
 function show_likes(resp) {
     var likes = child_to_parent(document.getElementsByClassName('clickpicturebackground')[0], 'div', ['likes'], null, '	&#10084; <span id="likedlike">' + resp['likes'] + '</span> &#128172; ' + resp['comments']);
+    if (sessionStorage.getItem('css_change_likes') != null)
+        likes.setAttribute('style', 'display: none;');
 }
 
 function get_comments(id) {
@@ -156,3 +158,9 @@ function scroller() {
         makeCallForPics();
 }
 wrapper.addEventListener('scroll', scroller, false);
+
+if (sessionStorage.getItem('css_change_night') != null) {
+    document.getElementById('ontop').style.background = '#2d2d2e';
+    wrapper.style.background = '#2d2d2e';
+
+}
