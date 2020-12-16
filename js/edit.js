@@ -52,10 +52,10 @@ function drawDataURIOnCanvas(strDataURI, canvas) {
     console.log(img.width);
 }
 */
-var src = document.getElementById("filetoedit");
-var target = document.getElementById("imagetoedit");
+//var src = document.getElementById("filetoedit");
+//var target = document.getElementById("imagetoedit");
 
-
+/*
 function detectMob() {
     const toMatch = [
         /Android/i,
@@ -72,3 +72,49 @@ function detectMob() {
     });
 }
 console.log('is it' + detectMob());
+*/
+
+function child_to_parent(parent, child_type, class_names, attributes, content) {
+    var child = document.createElement(child_type);
+    if (class_names != null) {
+        for (z = 0; class_names[z]; z++)
+            child.classList.add(class_names[z]);
+    }
+    if (attributes != null) {
+        for (z = 0; attributes[z]; z += 2)
+            child.setAttribute(attributes[z], attributes[z + 1]);
+    }
+    if (content != null)
+        child.innerHTML = content;
+    if (parent != null)
+        parent.appendChild(child);
+    return (child);
+}
+
+function add_thumbnail(resp) {
+    var parent = document.getElementsByClassName('thumbnail')[0];
+    i = 0;
+//    var height = document.getElementsByClassName('thumbnail')[0].offsetHeight;
+    for (i = 0; resp[i]; i++) {
+        var cont = child_to_parent(parent, 'div', ['minicontainer'], null, null);
+        child_to_parent(cont, 'img', ['minipicture'], ['src', 'img/' + resp[i]['name']], null);
+    }
+}
+
+function fetch_thumbnails() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("post", 'server/fetchGallery.php', true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onload = function(event){ 
+        if (!event.target.response.startsWith('error')) {
+            resp = JSON.parse(event.target.response);
+            add_thumbnail(resp);
+            //console.log(resp);
+            //messageBox(resp, 'green');
+        } else
+            messageBox(event.target.response, 'red');
+
+    }
+    xhr.send("pic_owner=yes");
+}
+fetch_thumbnails();

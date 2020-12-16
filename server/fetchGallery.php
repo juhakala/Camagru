@@ -66,4 +66,25 @@ if (isset($_POST['start'])) {
         echo 'error : '.$msg->getMessage();
         die();
     }
+} else if (isset($_POST['pic_owner'])) {
+    try {
+        $stmt = $db->prepare('SELECT * FROM `gallery` WHERE login = :owner');
+        $stmt->bindValue(':owner', $_SESSION['login']);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            $res_array = array();
+            $i = 0;
+            for ($i = 0; $row; $i++) {
+                $res_array[$i] = $row;
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            echo json_encode($res_array);
+        } else {
+            echo "error : no pictures yet";
+        }
+    } catch (PDOException $msg) {
+        echo 'error : '.$msg->getMessage();
+        die();
+    }
 }

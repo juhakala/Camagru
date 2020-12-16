@@ -7,6 +7,12 @@
     <div class='image'>
 
     </div>
+    <div class='stickers'>
+
+    </div>
+    <div class='thumbnail'>
+        
+    </div>
     <!--
     <div id='loadedpicture'>
         <input id='filetoedit' type="file">
