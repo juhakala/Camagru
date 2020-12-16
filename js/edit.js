@@ -7,17 +7,17 @@ function pickLoad(evt) {
     if (evt == false) {
         document.getElementById('loadpic').style.background = '#f2dede';
         document.getElementById('camera').style.background = 'blue';
-        document.getElementById('loadedpicture').style.display = 'none';
-        document.getElementById('camerapicture').style.display = 'block';
+        //document.getElementById('loadedpicture').style.display = 'none';
+        //document.getElementById('camerapicture').style.display = 'block';
     } else {
         document.getElementById('loadpic').style.background =  'blue';
         document.getElementById('camera').style.background = '#f2dede';
-        document.getElementById('loadedpicture').style.display = 'block';
-        document.getElementById('camerapicture').style.display = 'none';
+        //document.getElementById('loadedpicture').style.display = 'block';
+        //document.getElementById('camerapicture').style.display = 'none';
     }
 }
 
-document.getElementById('filetoedit').addEventListener('change', pickPicture);
+//document.getElementById('filetoedit').addEventListener('change', pickPicture);
 
 function pickPicture() {
     console.log('changed');
@@ -40,7 +40,7 @@ function showImage(src,target) {
     };
     fr.readAsDataURL(src.files[0]);
     target.style.display = 'block';
-  }
+}
 /*
 function drawDataURIOnCanvas(strDataURI, canvas) {
     "use strict";
@@ -52,5 +52,23 @@ function drawDataURIOnCanvas(strDataURI, canvas) {
     console.log(img.width);
 }
 */
-  var src = document.getElementById("filetoedit");
-  var target = document.getElementById("imagetoedit");
+var src = document.getElementById("filetoedit");
+var target = document.getElementById("imagetoedit");
+
+
+function detectMob() {
+    const toMatch = [
+        /Android/i,
+        /webOS/i,
+        /iPhone/i,
+        /iPad/i,
+        /iPod/i,
+        /BlackBerry/i,
+        /Windows Phone/i
+    ];
+
+    return toMatch.some((toMatchItem) => {
+        return navigator.userAgent.match(toMatchItem);
+    });
+}
+console.log('is it' + detectMob());

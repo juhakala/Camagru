@@ -22,7 +22,6 @@
     background-color: #dff0d8;
     border-color: #d6e9c6;
 }
-
 p {
     font-size: 14px;
     margin: 0;
@@ -39,14 +38,10 @@ body {
 }
 .middle {
     width: 100%;
-    min-height: 80vh;
+    #min-height: 80vh;
 }
 .footer {
     position: absolute;
     bottom: 0;
     width: 100%;
-    #min-height: 10vh;
-    #max-height: 10vh;
-    #background-color: #333;
-    #color: white;
 }

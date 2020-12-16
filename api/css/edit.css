@@ -1,9 +1,50 @@
 .main {
-    position: absolute;
-    width: 70%;
+    #position: absolute;
+    width: fit-content;
+    margin:auto;
+    margin-top: 10vh;
+    overflow: auto;
     background: orange;
-    min-height: inherit;
 }
+
+.pick {
+    position: absolute;
+    margin-top: 5px;
+#    margin-left: 50%;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+.pick .switchposs{
+    position: relative;
+    width: max-content;
+#    left: -58%;
+    padding-top: 4%;
+}
+.pick .picturebutton {
+    border: 5px solid #f2dede;
+    font-weight: bold;
+    color: red;
+    padding: 4%;
+}
+.pick #loadpic {
+    border-right: none;
+    background: blue;
+}
+.pick #camera {
+    border-left: none;
+    background: #f2dede;
+}
+
+.image {
+    width: 700px;
+    height: 700px;
+    /* min-width: 80vw; */
+    /* min-height: 80vh; */
+    max-width: 100vw;
+    max-height: 100vh;
+    background: red;
+}
+
 .side {
     position: absolute;
     right: 0;
@@ -12,34 +53,7 @@
     min-height: inherit;
 }
 
-.pick {
-    position: absolute;
-    top: 0;
-    margin-left: 50%;
-    margin-top: 5vh;
-    border-radius: 4px;
-    white-space: nowrap;
-}
-.switchposs{
-    position: relative;
-    width: max-content;
-    left: -58%;
-    padding-top: 4%;
-}
-.picturebutton {
-    border: 5px solid #f2dede;
-    font-weight: bold;
-    color: red;
-    padding: 4%;
-}
-#loadpic {
-    border-right: none;
-    background: blue;
-}
-#camera {
-    border-left: none;
-    background: #f2dede;
-}
+
 #camerapicture {
     display: none;
 }

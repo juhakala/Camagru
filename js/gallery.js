@@ -1,4 +1,5 @@
-makeCallForPics();
+var count = 0;
+var picture_id = 0;
 var wrapper = document.getElementById("wrapper");
 var content = document.getElementById("content");
 var test = document.getElementById("test");
@@ -27,8 +28,7 @@ function child_to_parent(parent, child_type, class_names, attributes, content) {
         parent.appendChild(child);
     return (child);
 }
-var count = 0;
-var picture_id = 0;
+
 function makeCallForPics() {
     var xhr = new XMLHttpRequest();
     xhr.open("post", 'server/fetchGallery.php', true);
@@ -164,3 +164,4 @@ if (sessionStorage.getItem('css_change_night') != null) {
     wrapper.style.background = '#2d2d2e';
 
 }
+makeCallForPics();
