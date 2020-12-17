@@ -8,6 +8,7 @@
 }
 
 .pick {
+    display: none;
     position: absolute;
     margin-top: 5px;
 #    margin-left: 50%;
@@ -37,32 +38,28 @@
 .image {
     width: 800px;
     height: 800px;
-    /* min-width: 80vw; */
-    /* min-height: 80vh; */
     max-width: 100vw;
-    max-height: 80vh;
+    max-height: 70vh;
     background: red;
 }
-.stickers {
-    width: 800px;
-    height: 150px;
-    /* min-width: 80vw; */
-    /* min-height: 80vh; */
-    max-width: 100vw;
-    max-height: 150px;
-    background: blue;
-    overflow: auto;
-}
-.thumbnail {
+.stickers, .thumbnail {
     display: flex;
     width: 800px;
     height: 150px;
     max-width: 100vw;
     max-height: 150px;
-    background: yellow;
-    overflow: auto;
+    background: blue;
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
-.thumbnail .minicontainer {
+.stickers::-webkit-scrollbar, .thumbnail::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, Opera */
+}
+.thumbnail {
+    background: yellow;
+}
+.thumbnail .minicontainer, .stickers .minicontainer{
     position: relative;
     height: 150px;
     width: 200px;
@@ -73,6 +70,9 @@
     background: grey;
     margin-right: 10px;
 }
+.stickers .minicontainer {
+    background: #0394fc;
+}
 .minipicture {
     position: relative;
     max-width: 200px;
@@ -82,6 +82,29 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+.stickerpicture {
+    max-width: 150px;
+    max-height: 105px;
+}
+
+
+#my-image {
+    overflow: hidden;
+    position: relative;
+}
+#stic {
+    max-width: 10vw;
+    max-height: 10vh;
+    position: absolute;
+}
+
+
+
+
+
+
+
+
 
 
 

@@ -4,8 +4,8 @@
             <span id='loadpic' class='picturebutton'>load picture</span><span id='camera' class='picturebutton'>take picture</span>
         </div>
     </div>
-    <div class='image'>
-
+    <div id='my-image' class='image'>
+        
     </div>
     <div class='stickers'>
 

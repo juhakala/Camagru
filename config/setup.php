@@ -32,7 +32,16 @@ try {
     $db->exec("INSERT IGNORE INTO gallery (name, login, width, height) VALUES ('dog4.jpg', 'admin', '7375', '4919')");
     $db->exec("INSERT IGNORE INTO gallery (name, login, width, height) VALUES ('dog5.jpg', 'admin', '5184', '3456')");
     $db->exec("INSERT IGNORE INTO gallery (name, login, width, height) VALUES ('dog6.jpg', 'admin', '3648', '5472')");
-    
+
+    $db->exec('CREATE TABLE IF NOT EXISTS `stickers` (
+        `id` int(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        `src` varchar(255) NOT NULL
+    )');
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('stick1.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('whatsapp.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('mailmonkey.png')");
+
+
     $db->exec('CREATE TABLE IF NOT EXISTS `likes` (
         `id_gallery` int(10) unsigned NOT NULL,
         `id_login` int(10) unsigned NOT NULL,
