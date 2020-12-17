@@ -13,12 +13,8 @@
     <div class='thumbnail'>
         
     </div>
+
     <!--
-    <div id='loadedpicture'>
-        <input id='filetoedit' type="file">
-        <br>
-        <img id='imagetoedit' src=''>
-    </div>
     <div id='camerapicture'>
     </div>
 </div>
@@ -32,4 +28,11 @@
     <div class='stickers'>
 
     </div>-->
+</div>
+<div id='loadedpicture'>
+    <input id='filetoedit' type="file">
+    <br>
+    <input id='loadable_file' type='file' hidden>
+    <br>
+    <img id='imagetoedit' src=''>
 </div>

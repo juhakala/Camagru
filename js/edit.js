@@ -1,45 +1,30 @@
-var toggle = true;
-
-document.getElementById('loadpic').addEventListener('click', function() {pickLoad(true)});
-document.getElementById('camera').addEventListener('click', function() {pickLoad(false)});
-
-function pickLoad(evt) {
-    if (evt == false) {
-        document.getElementById('loadpic').style.background = '#f2dede';
-        document.getElementById('camera').style.background = 'blue';
-        //document.getElementById('loadedpicture').style.display = 'none';
-        //document.getElementById('camerapicture').style.display = 'block';
-    } else {
-        document.getElementById('loadpic').style.background =  'blue';
-        document.getElementById('camera').style.background = '#f2dede';
-        //document.getElementById('loadedpicture').style.display = 'block';
-        //document.getElementById('camerapicture').style.display = 'none';
-    }
-}
-
-//document.getElementById('filetoedit').addEventListener('change', pickPicture);
-
 function pickPicture() {
-    //console.log('changed');
-    //console.log(document.getElementById('filetoedit').value);
     if (document.getElementById('filetoedit').value != null) {
-        document.getElementById('filetoedit').style.margin = 0;
-        showImage(src,target);
+        var src = document.getElementById("filetoedit");
+        document.getElementById('loadable_file').files = src.files;
+        showImage(src);//,target);
     } else
         console.log('not changed');
     document.getElementById('filetoedit').value = null;
 }
 
-function showImage(src,target) {
-    //console.log('here');
+function showImage(src) {//},target) {
     var fr=new FileReader();
     fr.onload = function(e) {
-        target.src = this.result;
-        //console.log(target.src);
-        //drawDataURIOnCanvas(target.src, target);
+        var parent = document.getElementById('my-image');
+        if (document.getElementsByClassName('editthiscont')[0])
+            document.getElementsByClassName('editthiscont')[0].remove();
+        var cont = child_to_parent(parent, 'div', ['editthiscont'], null, null);
+        var pic = new Image();
+        pic.src = this.result;
+        pic.setAttribute('id', 'tosome');
+        pic.onload = function() {
+            parent.setAttribute('style', 'weight: '+pic.width+'; height: '+pic.height+';');
+
+        }
+        cont.appendChild(pic);
     };
     fr.readAsDataURL(src.files[0]);
-    target.style.display = 'block';
 }
 /*
 function drawDataURIOnCanvas(strDataURI, canvas) {
@@ -108,8 +93,6 @@ function fetch_thumbnails() {
         if (!event.target.response.startsWith('error')) {
             resp = JSON.parse(event.target.response);
             add_thumbnail(resp);
-            //console.log(resp);
-            //messageBox(resp, 'green');
         } else
             messageBox(event.target.response, 'red');
 
@@ -122,17 +105,25 @@ fetch_thumbnails();
 var scroll = 0;
 var moving = false;
 
-document.getElementsByClassName('main')[0].addEventListener('scroll', (event) => {
-    scroll = event.target.scrollTop + event.target.offsetHeight - event.target.clientHeight
-});
-
-var diment = document.getElementById('my-image').getBoundingClientRect();
+//var diment = document.getElementById('my-image').getBoundingClientRect();
 function move(e){
-    //console.log(image.clientWidth);
+    var diment = document.getElementsByClassName('editthiscont')[0].getBoundingClientRect();
+
     var newX = e.clientX - diment['x'] - image.clientWidth / 2;
     var newY = e.clientY - diment['y'] - image.clientHeight / 2 + scroll;
-    image.style.left = newX + "px";
-    image.style.top = newY + "px";
+//    console.log(' ' + newX + '      ' +newY);
+    if (newX <= diment['width'] && newY <= diment['height']) {
+        image.style.left = newX + "px";
+        image.style.top = newY + "px";
+    }
+}
+
+document.getElementsByClassName('main')[0].addEventListener('scroll', (event) => {
+    //scroll = event.target.scrollTop + event.target.offsetHeight - event.target.clientHeight
+});
+
+function remove(e) {
+    this.remove();
 }
 
 function initialClick(e) {
@@ -147,11 +138,18 @@ function initialClick(e) {
 }
 
 function add_sticker_to_image(src) {
-    //console.log(src);
-    var parent = document.getElementById('my-image');
-    var child = child_to_parent(parent, 'div', null, ['id', 'stic'], null);
-    child_to_parent(child, 'img', null, ['src', src, 'style', 'max-width: 10vw; max-height: 10vh;'], null);
-    child.addEventListener("mousedown", initialClick, false);
+    var parent = document.getElementsByClassName('editthiscont')[0];
+    if (parent) {
+        var child = child_to_parent(parent, 'div', null, ['id', 'stic'], null);
+        var stic = child_to_parent(child, 'img', null, ['src', src, 'style', 'max-width: 10vw; max-height: 10vh;'], null);
+        child.addEventListener("mousedown", initialClick, false);
+        child.addEventListener("dblclick", remove, false);
+        var diment = document.getElementsByClassName('editthiscont')[0].getBoundingClientRect();
+        newx = diment['width'] / 2 - stic.width / 2;
+        newy = diment['height'] / 2 - stic.height / 2;
+        child.setAttribute('style', 'left:'+newx+'px;top:'+newy+'px;');
+    } else
+        console.log('need base image first');
 }
 
 function add_sticker(resp) {
@@ -196,3 +194,15 @@ fetch_stickers();
 //if (im) {
 //    im.addEventListener("mousemove",mvImg,false);
 //}
+
+document.getElementById('filetoedit').addEventListener('change', pickPicture);
+
+//var data_uri = this.result
+//        var xhr = new XMLHttpRequest();
+//        xhr.open("post", 'server/createPicture.php', true);
+//        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//        xhr.onload = function(event){ 
+//            console.log('responsed with: '+event.target.response);
+//        };
+//        data = {url : data_uri};
+//        xhr.send('url='+data_uri);
