@@ -30,9 +30,13 @@
     </div>-->
 </div>
 <div id='loadedpicture'>
-    <input id='filetoedit' type="file">
+    <input id='filetoedit' name='fileToUpload' type="file">
     <br>
-    <input id='loadable_file' type='file' hidden>
+    <!--<input id='loadable_file' type='file' hidden>-->
     <br>
     <img id='imagetoedit' src=''>
 </div>
+<form action="server/createPicture.php" class='thisform' method="post" enctype="multipart/form-data">
+    <!--<input type="file" name="fileToUpload" id="loadable_file">-->
+    <input type="submit" value="Upload Image" id='loadable_sub' name="submit">
+</form>

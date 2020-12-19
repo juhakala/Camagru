@@ -1,7 +1,12 @@
 function pickPicture() {
     if (document.getElementById('filetoedit').value != null) {
+        if (document.getElementById('loadable_file'))
+            document.getElementById('loadable_file').remove();
         var src = document.getElementById("filetoedit");
-        document.getElementById('loadable_file').files = src.files;
+        var clone = src.cloneNode(true);
+        clone.id = 'loadable_file';
+        clone.hidden = true;
+        document.getElementsByClassName('thisform')[0].appendChild(clone);
         showImage(src);//,target);
     } else
         console.log('not changed');
@@ -206,3 +211,13 @@ document.getElementById('filetoedit').addEventListener('change', pickPicture);
 //        };
 //        data = {url : data_uri};
 //        xhr.send('url='+data_uri);
+
+document.getElementById('loadable_sub').addEventListener('click', (event) => {
+    console.log('files: ' + document.getElementById('loadable_file').files);
+    if (document.getElementById('loadable_file').files == null) {
+        console.log('is null');
+        event.preventDefault();
+    } else {
+        console.log('is something');
+    }
+});
