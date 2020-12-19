@@ -31,38 +31,6 @@ function showImage(src) {//},target) {
     };
     fr.readAsDataURL(src.files[0]);
 }
-/*
-function drawDataURIOnCanvas(strDataURI, canvas) {
-    "use strict";
-    var img = new window.Image();
-    img.addEventListener("load", function () {
-        canvas.getContext("2d").ctx.drawImage(img, 0, 0, 500, 457, 0, 0, canvas.width, canvas.height); // destination rectangle
-    });
-    img.setAttribute("src", strDataURI);
-    console.log(img.width);
-}
-*/
-//var src = document.getElementById("filetoedit");
-//var target = document.getElementById("imagetoedit");
-
-/*
-function detectMob() {
-    const toMatch = [
-        /Android/i,
-        /webOS/i,
-        /iPhone/i,
-        /iPad/i,
-        /iPod/i,
-        /BlackBerry/i,
-        /Windows Phone/i
-    ];
-
-    return toMatch.some((toMatchItem) => {
-        return navigator.userAgent.match(toMatchItem);
-    });
-}
-console.log('is it' + detectMob());
-*/
 
 function child_to_parent(parent, child_type, class_names, attributes, content) {
     var child = document.createElement(child_type);
@@ -108,12 +76,10 @@ fetch_thumbnails();
 
 
 var scroll = 0;
-var moving = false;
 
-//var diment = document.getElementById('my-image').getBoundingClientRect();
+var moved = false;
 function move(e){
     var diment = document.getElementsByClassName('editthiscont')[0].getBoundingClientRect();
-
     var newX = e.clientX - diment['x'] - image.clientWidth / 2;
     var newY = e.clientY - diment['y'] - image.clientHeight / 2 + scroll;
 //    console.log(' ' + newX + '      ' +newY);
@@ -121,6 +87,7 @@ function move(e){
         image.style.left = newX + "px";
         image.style.top = newY + "px";
     }
+    moved = true;
 }
 
 document.getElementsByClassName('main')[0].addEventListener('scroll', (event) => {
@@ -131,23 +98,52 @@ function remove(e) {
     this.remove();
 }
 
-function initialClick(e) {
-    if(moving){
-        document.removeEventListener("mousemove", move);
-        moving = !moving;
-        return;
+function remove_highlight(e) {
+    var me = document.getElementById('stick_target');
+    if (me) {
+        me.style.border = 'none';
+        console.log('toka');
+        me.removeAttribute('id');
+        var uus = parseInt(me.parentElement.style.left) + 2;
+        var yla = parseInt(me.parentElement.style.top) + 2;
+        me.parentElement.style.left = uus + 'px';
+        me.parentElement.style.top = yla + 'px';
     }
-    moving = !moving;
-    image = this;
-    document.addEventListener("mousemove", move, false);
+}
+
+document.addEventListener('mousedown', function(e) {
+    remove_highlight(e);
+});
+
+function sticker_size(e) {
+    if (!moved) {
+        console.log('just click');
+        e.target.style.border = '2px dashed black';
+        var uus = parseInt(e.target.parentElement.style.left) - 2;
+        var yla = parseInt(e.target.parentElement.style.top) - 2;
+        e.target.parentElement.style.left = uus + 'px';
+        e.target.parentElement.style.top = yla + 'px';
+        setTimeout(function() {
+            e.target.setAttribute('id', 'stick_target');
+        }, 100);
+    }
+    moved = false;
 }
 
 function add_sticker_to_image(src) {
     var parent = document.getElementsByClassName('editthiscont')[0];
     if (parent) {
         var child = child_to_parent(parent, 'div', null, ['id', 'stic'], null);
-        var stic = child_to_parent(child, 'img', null, ['src', src, 'style', 'max-width: 10vw; max-height: 10vh;'], null);
-        child.addEventListener("mousedown", initialClick, false);
+        var stic = child_to_parent(child, 'img', null, ['src', src, 'style', 'width: 100px;'], null);
+        child.addEventListener("mousedown", function(e){
+            e.preventDefault();
+            image = this;
+            this.addEventListener("mousemove", move);
+            this.addEventListener("mouseup", function(e){
+                this.removeEventListener("mousemove", move);
+            });
+        });
+        child.addEventListener('click', sticker_size, false);
         child.addEventListener("dblclick", remove, false);
         var diment = document.getElementsByClassName('editthiscont')[0].getBoundingClientRect();
         newx = diment['width'] / 2 - stic.width / 2;
@@ -185,39 +181,34 @@ function fetch_stickers() {
 }
 fetch_stickers();
 
-
-/* mousemovement for sticker positioning */
-
-//function mvImg(e) {
-//    var valueX = (e.pageX * -1 / 12);
-//    var valueY = (e.pageY * -1 / 12);
-//    this.style.backgroundPositionX = valueX + "px"
-//    this.style.backgroundPositionY = valueY + "px"
-//    //console.log(this.style.backgroundPositionX +', ' + this.style.backgroundPositionY);
-//}
-//var im = document.getElementById("my-image");
-//if (im) {
-//    im.addEventListener("mousemove",mvImg,false);
-//}
-
 document.getElementById('filetoedit').addEventListener('change', pickPicture);
 
-//var data_uri = this.result
-//        var xhr = new XMLHttpRequest();
-//        xhr.open("post", 'server/createPicture.php', true);
-//        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-//        xhr.onload = function(event){ 
-//            console.log('responsed with: '+event.target.response);
-//        };
-//        data = {url : data_uri};
-//        xhr.send('url='+data_uri);
+function get_stickers_data(formData) {
+    var diment = document.getElementsByClassName('editthiscont')[0].getBoundingClientRect();
+    console.log(diment);
+    formData.append('width', diment['width']);
+    formData.append('height', diment['height']);
+    var stickers = document.querySelectorAll('#stic');
+    stickers.forEach(function(elem) {
+//        formData.append('name', value);
+        console.log(elem);
+        console.log(elem.getBoundingClientRect());
+    });
+}
 
 document.getElementById('loadable_sub').addEventListener('click', (event) => {
-    console.log('files: ' + document.getElementById('loadable_file').files);
-    if (document.getElementById('loadable_file').files == null) {
-        console.log('is null');
-        event.preventDefault();
-    } else {
+    event.preventDefault();
+    if (document.getElementById('loadable_file') && document.getElementById('loadable_file').files != null) {
         console.log('is something');
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", 'server/createPicture.php', true);
+        xhr.onload = function(event){
+            messageBox(event.target.response, 'green');
+        }
+        var formData = new FormData(document.getElementsByClassName("thisform")[0]);
+        get_stickers_data(formData);
+        xhr.send(formData);
+    } else {
+        //console.log('is nothing');
     }
 });

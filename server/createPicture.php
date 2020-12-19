@@ -1,15 +1,18 @@
 <?php
 session_start();
+echo "start ";
 print_r($_POST);
 echo "<br>";
-print_r($_FILES);
-echo "<br>";
-print_r($_FILES['fileToUpload']);
-echo "<br>";
-echo $_FILES['fileToUpload']['name'];
-echo "<br>";
-echo $_FILES['fileToUpload']['tmp_name'];
-echo "<br>";
+//print_r($_POST);
+//echo "<br>";
+//print_r($_FILES);
+//echo "<br>";
+//print_r($_FILES['fileToUpload']);
+//echo "<br>";
+//echo $_FILES['fileToUpload']['name'];
+//echo "<br>";
+//echo $_FILES['fileToUpload']['tmp_name'];
+//echo "<br>";
 
 $imageFileType = strtolower(pathinfo(basename($_FILES["fileToUpload"]["name"]),PATHINFO_EXTENSION));
 $size[0] = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -19,19 +22,19 @@ if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpe
 }
 $target_file = $target_dir . $_SESSION['login'] . "." . $imageFileType;
 
-$image = imagecreatetruecolor($size[0][0], $size[0][1]);
+$image = imagecreatetruecolor($_POST['width'], $_POST['height']);
 
 move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], 'admin1.jpg');
 $base_image = imagecreatefromstring(file_get_contents('admin1.jpg'));
 
-imagecopy($image, $base_image, 0, 0, 0, 0, $size[0][0], $size[0][1]);
-echo "<br> copied";
+imagecopyresized($image, $base_image, 0, 0, 0, 0, $_POST['width'], $_POST['height'], $size[0][0], $size[0][1]);
+//echo "<br> copied";
 /*
 name => sticker name (daa)
 widht, height => how big and what scale you want sticker to be
 x, y => starting coordinates for placing the sticker to $image
 */
-$stick_arr = [['name' => '../stickers/mailmonkey.png', 'width' => 300, 'height' => 500, 'x' => 200, 'y' => 400],
+$stick_arr = [['name' => '../stickers/mailmonkey.png', 'width' => 300, 'height' => 500, 'x' => -100, 'y' => 400],
               ['name' => '../stickers/stick1.png', 'width' => 500, 'height' => 500, 'x' => 1000, 'y' => 1000],
               ['name' => '../stickers/whatsapp.png', 'width' => 500, 'height' => 500, 'x' => 1400, 'y' => 1400],
               ];
