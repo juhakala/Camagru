@@ -26,6 +26,11 @@ $base_image = imagecreatefromstring(file_get_contents('admin1.jpg'));
 
 imagecopy($image, $base_image, 0, 0, 0, 0, $size[0][0], $size[0][1]);
 echo "<br> copied";
+/*
+name => sticker name (daa)
+widht, height => how big and what scale you want sticker to be
+x, y => starting coordinates for placing the sticker to $image
+*/
 $stick_arr = [['name' => '../stickers/mailmonkey.png', 'width' => 300, 'height' => 500, 'x' => 200, 'y' => 400],
               ['name' => '../stickers/stick1.png', 'width' => 500, 'height' => 500, 'x' => 1000, 'y' => 1000],
               ['name' => '../stickers/whatsapp.png', 'width' => 500, 'height' => 500, 'x' => 1400, 'y' => 1400],
@@ -37,6 +42,9 @@ foreach ($stick_arr as $sticker) {
     imagecopyresized($image, $stic1, $sticker['x'], $sticker['y'], 0, 0, $sticker['width'], $sticker['height'], imagesx($stic1), imagesy($stic1));
     echo "<br>sticker added";
 }
+
+//new image is in server/admin.jpg
+// with tmp admin1.jpg
 imagejpeg( $image, 'admin.jpg' );
 
 echo "<br> at end";
