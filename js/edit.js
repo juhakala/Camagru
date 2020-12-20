@@ -209,10 +209,12 @@ document.getElementById('loadable_sub').addEventListener('click', (event) => {
         xhr.open("post", 'server/createPicture.php', true);
         xhr.onload = function(event){
             if (event.target.response.startsWith('success')) {
+                window.location.href = window.location.href
                 messageBox(event.target.response, 'green');
-                console.log(event.target.response);
-            } else
+            } else {
                 messageBox(event.target.response, 'red');
+                console.log(event.target.response);
+            }
         }
         var formData = new FormData(document.getElementsByClassName("thisform")[0]);
         get_stickers_data(formData);

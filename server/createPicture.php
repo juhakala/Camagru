@@ -1,4 +1,5 @@
 <?php
+require_once('../config/connect.php');
 session_start();
 
 $imageFileType = strtolower(pathinfo(basename($_FILES["fileToUpload"]["name"]),PATHINFO_EXTENSION));
@@ -20,7 +21,21 @@ for ($i = 0; $stick_arr[$i]; $i++) {
     $stic1 = imagecreatefrompng($stick_arr[$i]->name);
     imagecopyresized($image, $stic1, $stick_arr[$i]->x, $stick_arr[$i]->y, 0, 0, $stick_arr[$i]->width, $stick_arr[$i]->height, imagesx($stic1), imagesy($stic1));
 }
+try {
+    $stmt = $db->prepare('INSERT INTO gallery (name, login) VALUES ("tmp.jpg", :log)');
+    $stmt->bindParam(':log', $_SESSION['login']);
+    $stmt->execute();
+    $last_id = $db->lastInsertId();
+    $stmt = $db->prepare('UPDATE `gallery` SET name = :name WHERE id = :last_id');
+    $stmt->bindParam(':last_id', $last_id, PDO::PARAM_INT);
+    $name = $last_id . '.jpg';
+    $stmt->bindParam(':name', $name);
+    $stmt->execute();
+} catch (PDOException $msg) {
+  echo 'Error: '.$msg->getMessage();
+  die();
+}
+imagejpeg( $image, '../img/' . $last_id . '.jpg' );
 
-imagejpeg( $image, 'admin.jpg' );
-
-echo "success : saved to tmp location => erver/admin.jpg ";
+echo "success : saved to => img/" . $last_id . ".jpg";
+echo $db->lastInsertId();
