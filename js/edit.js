@@ -8,8 +8,9 @@ function pickPicture() {
         clone.hidden = true;
         document.getElementsByClassName('thisform')[0].appendChild(clone);
         showImage(src);//,target);
-    } else
-        console.log('not changed');
+    } else {
+        //console.log('not changed');
+    }
     document.getElementById('filetoedit').value = null;
 }
 
@@ -102,7 +103,6 @@ function remove_highlight(e) {
     var me = document.getElementById('stick_target');
     if (me) {
         me.style.border = 'none';
-        console.log('toka');
         me.removeAttribute('id');
         var uus = parseInt(me.parentElement.style.left) + 2;
         var yla = parseInt(me.parentElement.style.top) + 2;
@@ -117,7 +117,6 @@ document.addEventListener('mousedown', function(e) {
 
 function sticker_size(e) {
     if (!moved) {
-        console.log('just click');
         e.target.style.border = '2px dashed black';
         var uus = parseInt(e.target.parentElement.style.left) - 2;
         var yla = parseInt(e.target.parentElement.style.top) - 2;
@@ -133,7 +132,7 @@ function sticker_size(e) {
 function add_sticker_to_image(src) {
     var parent = document.getElementsByClassName('editthiscont')[0];
     if (parent) {
-        var child = child_to_parent(parent, 'div', null, ['id', 'stic'], null);
+        var child = child_to_parent(parent, 'div', null, ['id', 'stic', 'alt', src], null);
         var stic = child_to_parent(child, 'img', null, ['src', src, 'style', 'width: 100px;'], null);
         child.addEventListener("mousedown", function(e){
             e.preventDefault();
@@ -184,26 +183,36 @@ fetch_stickers();
 document.getElementById('filetoedit').addEventListener('change', pickPicture);
 
 function get_stickers_data(formData) {
-    var diment = document.getElementsByClassName('editthiscont')[0].getBoundingClientRect();
-    console.log(diment);
-    formData.append('width', diment['width']);
-    formData.append('height', diment['height']);
+    var div_diment = document.getElementsByClassName('editthiscont')[0].getBoundingClientRect();
+    formData.append('width', div_diment['width']);
+    formData.append('height', div_diment['height']);
     var stickers = document.querySelectorAll('#stic');
+    var dataArr = new Array();
+    s = 0;
     stickers.forEach(function(elem) {
-//        formData.append('name', value);
-        console.log(elem);
-        console.log(elem.getBoundingClientRect());
+        dataArr[s] = {};
+        var diment = elem.getBoundingClientRect();
+        dataArr[s]['name'] = '../stickers/' + elem.getAttribute('alt').substring(elem.getAttribute('alt').lastIndexOf("/") + 1);
+        dataArr[s]['width'] = diment['width'];
+        dataArr[s]['height'] = diment['height'];
+        dataArr[s]['x'] = diment['left'] - div_diment['left'];
+        dataArr[s]['y'] = diment['top'] - div_diment['top'];
+        s++;
     });
+    formData.append('stickers', JSON.stringify(dataArr));
 }
 
 document.getElementById('loadable_sub').addEventListener('click', (event) => {
     event.preventDefault();
     if (document.getElementById('loadable_file') && document.getElementById('loadable_file').files != null) {
-        console.log('is something');
         var xhr = new XMLHttpRequest();
         xhr.open("post", 'server/createPicture.php', true);
         xhr.onload = function(event){
-            messageBox(event.target.response, 'green');
+            if (event.target.response.startsWith('success')) {
+                messageBox(event.target.response, 'green');
+                console.log(event.target.response);
+            } else
+                messageBox(event.target.response, 'red');
         }
         var formData = new FormData(document.getElementsByClassName("thisform")[0]);
         get_stickers_data(formData);
