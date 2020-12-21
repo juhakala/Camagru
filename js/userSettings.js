@@ -50,7 +50,6 @@ function commentMail(parent) {
     child_to_parent(parent, 'input', null, ['type', 'hidden', 'name', 'passwd', 'value', 'generic'], true);
     child_to_parent(parent, 'input', null, ['id', 'formUrl', 'type', 'hidden', 'name', 'server/UM/userSettings.php'], false);
     document.getElementById('changeMailing').addEventListener('change', (event) => {
-        console.log('here');
         event.preventDefault();
         var xhr = new XMLHttpRequest();
         xhr.open("POST", document.getElementById("formUrl").name); 
@@ -90,9 +89,7 @@ function createForm(name) {
                 if (event.target.response.startsWith('success')) {
                     sessionStorage.setItem('message', event.target.response);
                     sessionStorage.setItem('color', 'green');
-                    //window.location.href = 'http://localhost:8080/Camagru/index.php';
                     document.location.reload(true);
-                    //messageBox(event.target.response, 'green');
                 } else {
                     messageBox(event.target.response, 'red');
                 }

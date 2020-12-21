@@ -1,8 +1,6 @@
 // masters function to handle middle class filling by xmlhttprequests
 var request = new XMLHttpRequest();
 function slaves(str, form) {
-    //console.log('str is: ' + str);
-    //console.log('form is: ' + form);
     sessionStorage.setItem('page', str);
     sessionStorage.setItem('form', form);
     request.open('GET', str, true);
@@ -11,7 +9,6 @@ function slaves(str, form) {
             var resp = request.responseText;
             document.getElementsByClassName('middle')[0].innerHTML = resp;
             if (form != 'null') {
-                //console.log('inside form is: ' + form);
                 formPage(form);
             }
         }

@@ -209,11 +209,13 @@ document.getElementById('loadable_sub').addEventListener('click', (event) => {
         xhr.open("post", 'server/createPicture.php', true);
         xhr.onload = function(event){
             if (event.target.response.startsWith('success')) {
+                sessionStorage.setItem('message', event.target.response);
+                sessionStorage.setItem('color', 'green');
                 window.location.href = window.location.href
-                messageBox(event.target.response, 'green');
+    //            messageBox(event.target.response, 'green');
             } else {
                 messageBox(event.target.response, 'red');
-                console.log(event.target.response);
+//                console.log(event.target.response);
             }
         }
         var formData = new FormData(document.getElementsByClassName("thisform")[0]);
