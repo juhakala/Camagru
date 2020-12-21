@@ -10,10 +10,15 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] == '') {
 }
 if (isset($_POST['id']) && $_POST['id'] != '' && isset($_POST['comment']) && trim($_POST['comment']) != '') {
     try {
+        $comment = strip_tags($_POST['comment']);
+        if ($comment == '') {
+            echo "error : after strip_tag comment is empty";
+            die();
+        }
         $stmt = $db->prepare('INSERT INTO comments (gallery_id, author, text) VALUES (:id, :log, :comment)');
         $stmt->bindParam(':id', $_POST['id']);
         $stmt->bindParam(':log', $_SESSION['login']);
-        $stmt->bindParam(':comment', trim($_POST['comment']));
+        $stmt->bindParam(':comment', trim($comment));
         $stmt->execute();
 
         $stmt = $db->prepare('SELECT email, mailing FROM users INNER JOIN gallery ON users.login = gallery.login');
@@ -26,7 +31,7 @@ if (isset($_POST['id']) && $_POST['id'] != '' && isset($_POST['comment']) && tri
               
             user: '.$_SESSION['login'].' commented on your picture(id: '.$_POST['id'].').
             ---------------------
-            \''.trim($_POST['comment']).'\'
+            \''.trim($comment).'\'
             ---------------------
               
             '; // Our message above including the link
@@ -38,7 +43,7 @@ if (isset($_POST['id']) && $_POST['id'] != '' && isset($_POST['comment']) && tri
     	echo 'Error: '.$msg->getMessage();
     	die();
     }
-    echo "success comment : " . $_POST['comment'];
+    echo "success comment : " . $comment;
 } else {
     echo "error : where is the comment?";
 }

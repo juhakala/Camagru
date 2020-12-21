@@ -1,7 +1,24 @@
 <?php
 require_once('../../config/connect.php');
 session_start();
-if (isset($_POST['passwd']) && $_POST['passwd'] == $_POST['passwdAgain']) {
+
+if (isset($_POST['login']) && isset($_POST['email']) && isset($_POST['passwd']) && $_POST['passwd'] == $_POST['passwdAgain']) {
+    $ok = 0;
+    if (!preg_match('/^[A-Z][a-z]{2,}$/' , $_POST['login'])) {
+        echo "error : not a valid login";
+        $ok = 1;
+    } if (!preg_match('/^\S+@\S+\.\S+$/', $_POST['email'])) {
+        if ($ok == 1)
+            echo "<br>";
+        echo "error: not a valid email";
+        $ok = 1;
+    } if (!preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/', $_POST['passwd'])) {
+        if ($ok == 1)
+            echo "<br>";
+        echo "error: not a valid passwd";
+        $ok = 1;
+    } if ($ok == 1)
+        die();
     try {
     	$stmt = $db->prepare('SELECT * FROM `users` WHERE login = :log OR email = :email');
         $stmt->bindParam(':log', $_POST['login']);
@@ -29,5 +46,5 @@ if (isset($_POST['passwd']) && $_POST['passwd'] == $_POST['passwdAgain']) {
     }
 }
 else {
-    echo "passwds did not match";
+    echo "error in inputs";
 }

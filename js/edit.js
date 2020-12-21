@@ -50,12 +50,43 @@ function child_to_parent(parent, child_type, class_names, attributes, content) {
     return (child);
 }
 
+function hover_thumb(e) {
+    var timer = setTimeout( function() {
+        var child = child_to_parent(e.target, 'div', null, ['id', 'delete_thumbnail'], 'x');
+        child.addEventListener('click', (event) => {
+            var xhr = new XMLHttpRequest();
+            xhr.open("post", 'server/deletefromgallery.php', true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onload = function(event){ 
+                if (event.target.response.startsWith('success')) {
+                    sessionStorage.setItem('message', event.target.response);
+                    sessionStorage.setItem('color', 'green');
+                    window.location.href = window.location.href
+                } else
+                    messageBox(event.target.response, 'red');
+            }
+            xhr.send("delete="+e.target.getAttribute('alt')+"&name="+e.target.getAttribute('title'));
+
+        });
+    }, 1000);
+    e.target.addEventListener('mouseleave', function() {
+        if (timer) {
+            clearTimeout(timer);
+        }
+        if (document.getElementById('delete_thumbnail')) {
+            document.getElementById('delete_thumbnail').remove();
+        }
+    });
+}
+
 function add_thumbnail(resp) {
     var parent = document.getElementsByClassName('thumbnail')[0];
     i = 0;
     for (i = 0; resp[i]; i++) {
         var cont = child_to_parent(parent, 'div', ['minicontainer'], null, null);
-        child_to_parent(cont, 'img', ['minipicture'], ['src', 'img/' + resp[i]['name']], null);
+        var middle = child_to_parent(cont, 'div', ['middle_thumbnail'], ['alt', resp[i]['id'], 'title', resp[i]['name']], null);
+        var child = child_to_parent(middle, 'img', ['minipicture'], ['src', 'img/' + resp[i]['name']], null);
+        middle.addEventListener('mouseenter', hover_thumb);
     }
 }
 
@@ -69,7 +100,6 @@ function fetch_thumbnails() {
             add_thumbnail(resp);
         } else
             messageBox(event.target.response, 'red');
-
     }
     xhr.send("pic_owner=yes");
 }
@@ -148,8 +178,9 @@ function add_sticker_to_image(src) {
         newx = diment['width'] / 2 - stic.width / 2;
         newy = diment['height'] / 2 - stic.height / 2;
         child.setAttribute('style', 'left:'+newx+'px;top:'+newy+'px;');
-    } else
-        console.log('need base image first');
+    } else {
+        //console.log('need base image first');
+    }
 }
 
 function add_sticker(resp) {
@@ -157,7 +188,8 @@ function add_sticker(resp) {
     i = 0;
     for (i = 0; resp[i]; i++) {
         var cont = child_to_parent(parent, 'div', ['minicontainer'], null, null);
-        var child = child_to_parent(cont, 'img', ['minipicture', 'stickerpicture'], ['src', 'stickers/' + resp[i]['src']], null);
+        var middle = child_to_parent(cont, 'div', ['middle_thumbnail'], null, null);
+        var child = child_to_parent(middle, 'img', ['minipicture', 'stickerpicture'], ['src', 'stickers/' + resp[i]['src']], null);
         child.addEventListener('click', (event) => {
             add_sticker_to_image(event.target.src);
         });
