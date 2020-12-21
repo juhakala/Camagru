@@ -42,10 +42,14 @@ function commentMail(parent) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", 'server/UM/userSettings.php');
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onload = function(event){
-        if (event.target.response == 'success : 1')
-            input.checked = true;
-    }
+    xhr.onreadystatechange = function(event){ 
+        if(xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 0 || (xhr.status >= 200 && xhr.status < 400)) {
+                if (event.target.response == 'success : 1')
+                    input.checked = true;
+            }
+        }
+    };
     xhr.send("name=checked&passwd=generic");
     child_to_parent(parent, 'input', null, ['type', 'hidden', 'name', 'passwd', 'value', 'generic'], true);
     child_to_parent(parent, 'input', null, ['id', 'formUrl', 'type', 'hidden', 'name', 'server/UM/userSettings.php'], false);
@@ -53,13 +57,18 @@ function commentMail(parent) {
         event.preventDefault();
         var xhr = new XMLHttpRequest();
         xhr.open("POST", document.getElementById("formUrl").name); 
-        xhr.onload = function(event){
-            if (event.target.response.startsWith('success')) {
-                messageBox(event.target.response, 'green');
-            } else {
-                messageBox(event.target.response, 'red');
+        xhr.onreadystatechange = function(event){ 
+            if(xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 0 || (xhr.status >= 200 && xhr.status < 400)) {
+            
+                    if (event.target.response.startsWith('success')) {
+                        messageBox(event.target.response, 'green');
+                    } else {
+                        messageBox(event.target.response, 'red');
+                    }
+                }
             }
-        }
+        };
         var formData = new FormData(document.getElementById("forms"));
         xhr.send(formData);
     });
@@ -85,13 +94,21 @@ function createForm(name) {
             event.preventDefault();
             var xhr = new XMLHttpRequest();
             xhr.open("POST", document.getElementById("formUrl").name); 
-            xhr.onload = function(event){ 
-                if (event.target.response.startsWith('success')) {
-                    sessionStorage.setItem('message', event.target.response);
-                    sessionStorage.setItem('color', 'green');
-                    document.location.reload(true);
-                } else {
-                    messageBox(event.target.response, 'red');
+            xhr.onreadystatechange = function(event){ 
+                if(xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 0 || (xhr.status >= 200 && xhr.status < 400)) {
+                        if (event.target.response.startsWith('success')) {
+                            if (event.target.response.startsWith('success : login deleted')) {
+                                sessionStorage.setItem('page', 'api/gallery.php');
+                                sessionStorage.setItem('form', 'js/gallery.js');
+                            }
+                            sessionStorage.setItem('message', event.target.response);
+                            sessionStorage.setItem('color', 'green');
+                            document.location.reload(true);
+                        } else {
+                            messageBox(event.target.response, 'red');
+                        }
+                    }
                 }
             };
             var formData = new FormData(document.getElementById("forms"));

@@ -16,8 +16,7 @@ try {
         `active` int(1) NOT NULL DEFAULT "0"
     )');
     $pass = hash('whirlpool', '123');
-    $db->exec("INSERT IGNORE INTO users (login, passwd, email, hash, active) VALUES ('admin', '". $pass ."', 'kalle@smil.com', '123', '1')");
-    $db->exec("INSERT IGNORE INTO users (login, passwd, email, hash, active) VALUES ('test', '1234', 'ktest@smil.com', '345', '0')");
+    $db->exec("INSERT IGNORE INTO users (login, passwd, email, hash, active) VALUES ('Admin', '". $pass ."', 'kalle@smil.com', '1234567890123345567789', '1')");
 
     $db->exec('CREATE TABLE IF NOT EXISTS gallery (
         id int(9) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -38,7 +37,6 @@ try {
     $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('stick1.png')");
     $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('whatsapp.png')");
     $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('mailmonkey.png')");
-
 
     $db->exec('CREATE TABLE IF NOT EXISTS `likes` (
         `id_gallery` int(10) unsigned NOT NULL,

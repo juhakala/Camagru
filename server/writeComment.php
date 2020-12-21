@@ -11,7 +11,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] == '') {
 if (isset($_POST['id']) && $_POST['id'] != '' && isset($_POST['comment']) && trim($_POST['comment']) != '') {
     try {
         $comment = strip_tags($_POST['comment']);
-        if ($comment == '') {
+        if (trim($comment) == '') {
             echo "error : after strip_tag comment is empty";
             die();
         }

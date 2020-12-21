@@ -16,15 +16,19 @@ document.forms['forms'].addEventListener('submit', (event) => {
     //console.log(document.getElementById("formUrl").name);
     var xhr = new XMLHttpRequest();
     xhr.open("POST", document.getElementById("formUrl").name); 
-    xhr.onload = function(event){ 
-        if (event.target.response.startsWith('success')) {
-            sessionStorage.setItem('page', 'api/gallery.php');
-            sessionStorage.setItem('form', 'js/gallery.js');
-            sessionStorage.setItem('message', event.target.response);
-            sessionStorage.setItem('color', 'green');
-            window.location.href = window.location.href
-        } else {
-            messageBox(event.target.response, 'red');
+    xhr.onreadystatechange = function (event) {
+        if(xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 0 || (xhr.status >= 200 && xhr.status < 400)) {
+                if (event.target.response.startsWith('success')) {
+                    sessionStorage.setItem('page', 'api/gallery.php');
+                    sessionStorage.setItem('form', 'js/gallery.js');
+                    sessionStorage.setItem('message', event.target.response);
+                    sessionStorage.setItem('color', 'green');
+                    window.location.href = window.location.href
+                } else {
+                    messageBox(event.target.response, 'red');
+                }
+            }
         }
     };
     var formData = new FormData(document.getElementById("forms"));

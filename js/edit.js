@@ -57,13 +57,17 @@ function hover_thumb(e) {
             var xhr = new XMLHttpRequest();
             xhr.open("post", 'server/deletefromgallery.php', true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onload = function(event){ 
-                if (event.target.response.startsWith('success')) {
-                    sessionStorage.setItem('message', event.target.response);
-                    sessionStorage.setItem('color', 'green');
-                    window.location.href = window.location.href
-                } else
-                    messageBox(event.target.response, 'red');
+            xhr.onreadystatechange = function(event){ 
+                if(xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 0 || (xhr.status >= 200 && xhr.status < 400)) {
+                        if (event.target.response.startsWith('success')) {
+                            sessionStorage.setItem('message', event.target.response);
+                            sessionStorage.setItem('color', 'green');
+                            window.location.href = window.location.href
+                        } else
+                            messageBox(event.target.response, 'red');
+                    }
+                }
             }
             xhr.send("delete="+e.target.getAttribute('alt')+"&name="+e.target.getAttribute('title'));
 
@@ -94,12 +98,16 @@ function fetch_thumbnails() {
     var xhr = new XMLHttpRequest();
     xhr.open("post", 'server/fetchGallery.php', true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onload = function(event){ 
-        if (!event.target.response.startsWith('error')) {
-            resp = JSON.parse(event.target.response);
-            add_thumbnail(resp);
-        } else
-            messageBox(event.target.response, 'red');
+    xhr.onreadystatechange  = function(event){
+        if(xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 0 || (xhr.status >= 200 && xhr.status < 400)) {
+                if (!event.target.response.startsWith('error')) {
+                    resp = JSON.parse(event.target.response);
+                    add_thumbnail(resp);
+                } else
+                    messageBox(event.target.response, 'red');
+            }
+        }
     }
     xhr.send("pic_owner=yes");
 }
@@ -200,13 +208,16 @@ function fetch_stickers() {
     var xhr = new XMLHttpRequest();
     xhr.open("post", 'server/fetchGallery.php', true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onload = function(event){ 
-        if (!event.target.response.startsWith('error')) {
-            resp = JSON.parse(event.target.response);
-            add_sticker(resp);
-        } else
-            messageBox(event.target.response, 'red');
-
+    xhr.onreadystatechange = function(event){ 
+        if(xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 0 || (xhr.status >= 200 && xhr.status < 400)) {
+                if (!event.target.response.startsWith('error')) {
+                    resp = JSON.parse(event.target.response);
+                    add_sticker(resp);
+                } else
+                    messageBox(event.target.response, 'red');
+            }
+        }
     }
     xhr.send("stickers=yes");
 }
@@ -239,15 +250,17 @@ document.getElementById('loadable_sub').addEventListener('click', (event) => {
     if (document.getElementById('loadable_file') && document.getElementById('loadable_file').files != null) {
         var xhr = new XMLHttpRequest();
         xhr.open("post", 'server/createPicture.php', true);
-        xhr.onload = function(event){
-            if (event.target.response.startsWith('success')) {
-                sessionStorage.setItem('message', event.target.response);
-                sessionStorage.setItem('color', 'green');
-                window.location.href = window.location.href
-    //            messageBox(event.target.response, 'green');
-            } else {
-                messageBox(event.target.response, 'red');
-//                console.log(event.target.response);
+        xhr.onreadystatechange = function(event) {
+            if(xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 0 || (xhr.status >= 200 && xhr.status < 400)) {
+                    if (event.target.response.startsWith('success')) {
+                        sessionStorage.setItem('message', event.target.response);
+                        sessionStorage.setItem('color', 'green');
+                        window.location.href = window.location.href
+                    } else {
+                        messageBox(event.target.response, 'red');
+                    }
+                }
             }
         }
         var formData = new FormData(document.getElementsByClassName("thisform")[0]);

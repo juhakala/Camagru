@@ -90,7 +90,8 @@ if (isset($_POST['name']) && isset($_SESSION['login']) && $_SESSION['login'] != 
             $stmt->execute();
 
             $stmt = $db->prepare('UPDATE `comments` SET author = :new WHERE author = :log');
-            $stmt->bindParam(':log', 'deleted['.$id.']');
+            $tmp = 'deleted['.$id.']';
+            $stmt->bindParam(':new', $tmp);
             $stmt->bindParam(':log', $_SESSION['login']);
             $stmt->execute();
 
@@ -99,7 +100,7 @@ if (isset($_POST['name']) && isset($_SESSION['login']) && $_SESSION['login'] != 
             $stmt->execute();
             $row = $row = $stmt->fetch(PDO::FETCH_ASSOC);
             while ($row) {
-                unlink('../img/' . $row['name']);
+                unlink('../../img/' . $row['name']);
                 $row = $row = $stmt->fetch(PDO::FETCH_ASSOC);
             }
 
