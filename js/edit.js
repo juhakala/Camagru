@@ -226,7 +226,7 @@ fetch_stickers();
 document.getElementById('filetoedit').addEventListener('change', pickPicture);
 
 function get_stickers_data(formData) {
-    var div_diment = document.getElementsByClassName('editthiscont')[0].getBoundingClientRect();
+    var div_diment = document.getElementById('tosome').getBoundingClientRect();
     formData.append('width', div_diment['width']);
     formData.append('height', div_diment['height']);
     var stickers = document.querySelectorAll('#stic');

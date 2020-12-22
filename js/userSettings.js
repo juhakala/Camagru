@@ -116,8 +116,3 @@ function createForm(name) {
         });
     }
 }
-if (sessionStorage.getItem('css_change_night') != null) {
-    document.getElementsByClassName('container')[0].style.background = '#2d2d2e';
-    document.getElementsByClassName('inner')[0].style.background = '#2d2d2e';
-
-}

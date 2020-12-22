@@ -9,6 +9,7 @@ require_once('server/verifySessionLogin.php');
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Camagru</title>
+        <link rel="stylesheet" href="api/css/default.css">
         <link rel="stylesheet" href="api/css/styleindex.css">
         <link rel="stylesheet" href="api/css/header.css">
         <link rel="stylesheet" href="api/css/footer.css">
@@ -22,7 +23,7 @@ require_once('server/verifySessionLogin.php');
             <?php include('header.php'); ?>
             <!-- header part -->
         </div>
-        <div id='hello' class='middle'>
+        <div class='middle'>
             <!-- middle part -->
         </div>
         <div class='footer'>
@@ -53,6 +54,7 @@ require_once('server/verifySessionLogin.php');
         if (message != "")
             messageBox(message, 'green'); 
     </script>
+    <script src="js/themes.js"></script>
     <script id="tmpScript"></script>
     </body>
 </html>

@@ -175,9 +175,4 @@ function scroller() {
 }
 wrapper.addEventListener('scroll', scroller, false);
 
-if (sessionStorage.getItem('css_change_night') != null) {
-    document.getElementById('ontop').style.background = '#2d2d2e';
-    wrapper.style.background = '#2d2d2e';
-
-}
 makeCallForPics();

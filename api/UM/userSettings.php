@@ -1,5 +1,5 @@
-<div class='container'>
-    <div class='inner'>
+<div class='container outer-layer'>
+    <div class='inner content-wrapper'>
         <div class="navbar">
             <div class='change' onclick='createForm("passChange")'>ChangePassw</div>
             <div class='change' onclick='createForm("emailChange")'>ChangeEmail</div>

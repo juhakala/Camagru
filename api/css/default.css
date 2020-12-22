@@ -1,0 +1,91 @@
+/* default structures */
+body {
+    background: white;
+}
+.outer-layer {
+    background: #EEE;
+}
+.content-wrapper {
+    background: #EEE;
+}
+
+/* messagediv */
+.failure {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+.succesful {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+/* usersettings */
+.container .change {
+    color: white;
+}
+.container .change:hover {
+    background-color: grey;
+    color: #333;
+}
+
+/* navbars */
+.navbar {
+    background-color: #333;
+}
+.navbar .login {
+    color: white;
+}
+.navbar .login:hover {
+    background-color: grey;
+    color: #333;
+}
+.navbar .something {
+    background: #333;
+    color: white;
+}
+.navbar .something:hover {
+    background-color: grey;
+    color: #333;
+}
+
+/* gallery */
+.commentbackground {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.clickpicturebackground {
+    background: black;
+}
+.clickcont {
+    background: #737170;
+}
+.likes {
+    color: red;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* edit */
+.image {
+    background: red;
+}
+.stickers {
+    background: blue;
+}
+.thumbnail {
+    background: yellow;
+}
+.thumbnail .minicontainer {
+    background: grey;
+}
+.stickers .minicontainer {
+    background: #0394fc;
+}
+#delete_thumbnail {
+    background: white;
+    border: 2px solid black;
+}
+#delete_thumbnail:hover {
+    background: black;
+    color: white;
+}

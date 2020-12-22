@@ -1,7 +1,5 @@
-<div id="test"></div>
-<div id='ontop'>
-    <div id="wrapper">
-        <div id="content"></div>
+<div id='ontop' class='outer-layer'>
+    <div id="wrapper" class='content-wrapper'>
+        <div id="content" class='content-layer'></div>
     </div>
 </div>
-<script src='js/tt.js'></script>
