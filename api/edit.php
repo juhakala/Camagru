@@ -12,9 +12,9 @@
     </div>
 </div>
 <div id='loadedpicture'>
-    <input id='filetoedit' name='fileToUpload' type="file">
+    <input id='filetoedit' name='fileToUpload' type='file'>
     <img id='imagetoedit' src=''>
 </div>
-<form action="server/createPicture.php" class='thisform' method="post" enctype="multipart/form-data">
-    <input type="submit" value="Upload Image" id='loadable_sub' name="submit">
+<form action='server/createPicture.php' class='thisform' method='post' enctype='multipart/form-data' style='position: absolute;'>
+    <input type='submit' value='Upload Image' id='loadable_sub' name='submit'>
 </form>

@@ -2,6 +2,14 @@
 require_once('../config/connect.php');
 session_start();
 
+if (!isset($_SESSION['login']) || $_SESSION['login'] == '' || $_SESSION['active'] != '1') {
+    echo "error : need to be logged in as activated user";
+    die();
+}
+if (!isset($_POST['width']) || !isset($_POST['height'])) {
+    echo "error : \$_POST value_error ";
+    die();
+}
 $imageFileType = strtolower(pathinfo(basename($_FILES["fileToUpload"]["name"]),PATHINFO_EXTENSION));
 $size[0] = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
 if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
@@ -38,4 +46,4 @@ try {
 imagejpeg( $image, '../img/' . $last_id . '.jpg' );
 
 echo "success : saved to => img/" . $last_id . ".jpg";
-echo $db->lastInsertId();
+//echo $db->lastInsertId();

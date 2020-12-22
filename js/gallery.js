@@ -50,6 +50,8 @@ function makeCallForPics() {
                         var parent = child_to_parent(content, 'div', ['galdiv'], null, null);
                         child_to_parent(parent, 'img', ['galpicture'], ['id', "picinstance"+resp[i]['id'] + count, 'title', resp[i]['name'], 'alt', resp[i]['id'], 'src', 'img/'+resp[i]['name']], null);
                         var elem = document.getElementById('picinstance'+resp[i]['id'] + count);
+                        if (!elem)
+                            return ;
                         var p_elem = document.getElementById('hoverinstance'+resp[i]['id'] + count++);
                         add_hover_effect(elem);
                         elem.addEventListener('click', function( event ) { 
@@ -173,6 +175,7 @@ function scroller() {
     if(wrapper.scrollTop +wrapper.offsetHeight>content.offsetHeight - 100)
         makeCallForPics();
 }
-wrapper.addEventListener('scroll', scroller, false);
+if (wrapper)
+    wrapper.addEventListener('scroll', scroller, false);
 
 makeCallForPics();

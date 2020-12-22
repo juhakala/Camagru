@@ -15,12 +15,13 @@ if (isset($_GET['email']) && $_GET['email'] != '' && isset($_GET['hash']) && $_G
             $stmt->execute();
             $_SESSION['login'] = $row['login'];
         }
-        else 
+        else {
             echo "no match\n";
+            die();
+        }
     } catch (PDOException $msg) {
     	echo 'error: '.$msg->getMessage();
     	die();
     }
     header('location: ../../index.php');
-} else
-    die();
+}

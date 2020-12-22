@@ -12,5 +12,4 @@ function run_themes() {
         head.appendChild(link); 
     } else if (document.getElementById('dark-mode'))
         document.getElementById('dark-mode').remove();
-    console.log('in themes');
 }

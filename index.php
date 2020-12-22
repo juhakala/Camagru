@@ -21,34 +21,22 @@ require_once('server/verifySessionLogin.php');
     <body>
         <div class='head'>
             <?php include('header.php'); ?>
-            <!-- header part -->
         </div>
         <div class='middle'>
-            <!-- middle part -->
+            <!-- middle part with xmlhttprequests mainly by masters and slaves functions-->
         </div>
         <div class='footer'>
             <?php include('footer.php'); ?>
-            <!-- footer part -->
         </div>
     <script src='js/index.js'></script>
     <script src='js/header.js'></script>
     <script src='js/footer.js'></script>
     <script>
-        var login = '<?php echo $_SESSION['login']; ?>';
-        var active = '<?php echo $_SESSION['active']; ?>';
-
-        var url = (sessionStorage.getItem('page') == 'null' || sessionStorage.getItem('page') == null || sessionStorage.getItem('page') == 'api/UM/verifyAgain.php') ? 'api/gallery.php' : sessionStorage.getItem('page');
-        var form = url == 'api/gallery.php' ? 'js/gallery.js' : sessionStorage.getItem('form');
         window.addEventListener('DOMContentLoaded', (event) => {
-            masters(url, form); //for div appending
+            masters( sessionStorage.getItem('page'), sessionStorage.getItem('form'));
         });
         function masters(str, form) {
-            if (login != '' && active === '0') {//always redirect to verifyAgain if not active
-                slaves('api/UM/verifyAgain.php', 'js/forms.js');
-<?php echo "} else if ('{$_SESSION['login']}' != '' && '{$_POST['email']}' != '' && '{$_POST['hash']}' != '') {
-                slaves('api/UM/resetPass.php', 'js/forms.js');";?>
-            } else
-                slaves(str, form);
+            slaves( str, form, '<?php echo $_POST['email']; ?>', '<?php echo $_POST['email']; ?>');
         }
         var message = '<?php echo $_GET['message']; ?>';
         if (message != "")

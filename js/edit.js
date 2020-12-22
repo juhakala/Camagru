@@ -7,7 +7,7 @@ function pickPicture() {
         clone.id = 'loadable_file';
         clone.hidden = true;
         document.getElementsByClassName('thisform')[0].appendChild(clone);
-        showImage(src);//,target);
+        showImage(src);
     } else {
         //console.log('not changed');
     }
@@ -129,9 +129,11 @@ function move(e){
     moved = true;
 }
 
-document.getElementsByClassName('main')[0].addEventListener('scroll', (event) => {
-    //scroll = event.target.scrollTop + event.target.offsetHeight - event.target.clientHeight
-});
+if (document.getElementsByClassName('main')[0]) {
+    document.getElementsByClassName('main')[0].addEventListener('scroll', (event) => {
+        //scroll = event.target.scrollTop + event.target.offsetHeight - event.target.clientHeight
+    });
+}
 
 function remove(e) {
     this.remove();
@@ -222,8 +224,8 @@ function fetch_stickers() {
     xhr.send("stickers=yes");
 }
 fetch_stickers();
-
-document.getElementById('filetoedit').addEventListener('change', pickPicture);
+if (document.getElementById('filetoedit'))
+    document.getElementById('filetoedit').addEventListener('change', pickPicture);
 
 function get_stickers_data(formData) {
     var div_diment = document.getElementById('tosome').getBoundingClientRect();
@@ -244,29 +246,30 @@ function get_stickers_data(formData) {
     });
     formData.append('stickers', JSON.stringify(dataArr));
 }
-
-document.getElementById('loadable_sub').addEventListener('click', (event) => {
-    event.preventDefault();
-    if (document.getElementById('loadable_file') && document.getElementById('loadable_file').files != null) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("post", 'server/createPicture.php', true);
-        xhr.onreadystatechange = function(event) {
-            if(xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 0 || (xhr.status >= 200 && xhr.status < 400)) {
-                    if (event.target.response.startsWith('success')) {
-                        sessionStorage.setItem('message', event.target.response);
-                        sessionStorage.setItem('color', 'green');
-                        window.location.href = window.location.href
-                    } else {
-                        messageBox(event.target.response, 'red');
+if (document.getElementById('loadable_sub')) {
+    document.getElementById('loadable_sub').addEventListener('click', (event) => {
+        event.preventDefault();
+        if (document.getElementById('loadable_file') && document.getElementById('loadable_file').files != null) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("post", 'server/createPicture.php', true);
+            xhr.onreadystatechange = function(event) {
+                if(xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 0 || (xhr.status >= 200 && xhr.status < 400)) {
+                        if (event.target.response.startsWith('success')) {
+                            sessionStorage.setItem('message', event.target.response);
+                            sessionStorage.setItem('color', 'green');
+                            window.location.href = window.location.href
+                        } else {
+                            messageBox(event.target.response, 'red');
+                        }
                     }
                 }
             }
+            var formData = new FormData(document.getElementsByClassName("thisform")[0]);
+            get_stickers_data(formData);
+            xhr.send(formData);
+        } else {
+            //console.log('is nothing');
         }
-        var formData = new FormData(document.getElementsByClassName("thisform")[0]);
-        get_stickers_data(formData);
-        xhr.send(formData);
-    } else {
-        //console.log('is nothing');
-    }
-});
+    });
+}

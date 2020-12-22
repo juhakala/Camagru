@@ -34,4 +34,3 @@ document.forms['forms'].addEventListener('submit', (event) => {
     var formData = new FormData(document.getElementById("forms"));
     xhr.send(formData);
 });
-
