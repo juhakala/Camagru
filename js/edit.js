@@ -130,11 +130,11 @@ function move(e){
     moved = true;
 }
 
-if (document.getElementsByClassName('main')[0]) {
-    document.getElementsByClassName('main')[0].addEventListener('scroll', (event) => {
-        //scroll = event.target.scrollTop + event.target.offsetHeight - event.target.clientHeight
-    });
-}
+//if (document.getElementsByClassName('main')[0]) {
+//    document.getElementsByClassName('main')[0].addEventListener('scroll', (event) => {
+//        //scroll = event.target.scrollTop + event.target.offsetHeight - event.target.clientHeight
+//    });
+//}
 
 function remove(e) {
     this.remove();
@@ -250,7 +250,7 @@ function get_stickers_data(formData) {
 if (document.getElementById('loadable_sub')) {
     document.getElementById('loadable_sub').addEventListener('click', (event) => {
         event.preventDefault();
-        if (document.getElementById('loadable_file') && document.getElementById('loadable_file').files != null) {
+        if (document.getElementsByClassName('editthiscont')[0]) {
             var xhr = new XMLHttpRequest();
             xhr.open("post", 'server/createPicture.php', true);
             xhr.onreadystatechange = function(event) {
@@ -266,7 +266,12 @@ if (document.getElementById('loadable_sub')) {
                     }
                 }
             }
-            var formData = new FormData(document.getElementsByClassName("thisform")[0]);
+            if (document.getElementsByClassName('forsaving')[0]) {
+                var formData = new FormData();
+                formData.append('canvas', document.getElementById('tosome').toDataURL('image/png'))
+            }
+            else
+                var formData = new FormData(document.getElementsByClassName("thisform")[0]);
             get_stickers_data(formData);
             xhr.send(formData);
         } else {
@@ -275,7 +280,9 @@ if (document.getElementById('loadable_sub')) {
     });
 }
 
-document.getElementById('startstream').addEventListener('click', function() {
+document.getElementById('startstream').addEventListener('click', function(e) {
+    if (e.detail == 0)
+        return ;
     if (this.value == 'start') {
         this.value = 'wait';
         if (navigator.mediaDevices.getUserMedia) {
@@ -296,6 +303,7 @@ document.getElementById('startstream').addEventListener('click', function() {
                     video.play();
                     setTimeout(() => {
                         document.getElementById('startstream').value = 'stop';
+                        window.addEventListener('keypress', take_picture_from_stream);
                     }, 2000);
                 })
                 .catch(function(err) {
@@ -304,24 +312,44 @@ document.getElementById('startstream').addEventListener('click', function() {
             }
         }
     } else if (this.value == 'stop') {
-        stream = false;
-        this.value = 'wait';
-        var parent = document.createElement('div');
-        parent.classList.add('image');
-        parent.id = 'my-image';
-        document.getElementsByClassName('content-wrapper')[0].prepend(parent);
-        var video = document.getElementById('my-video');
-        if (video) {
-            var tracks = video.srcObject.getTracks();
-            for (i = 0; i < tracks.length; i++) {
-                let track = tracks[i];
-                track.stop();
-            }
-            video.srcObject = null;
-            document.getElementsByClassName('videoimage')[0].remove();
-            setTimeout(() => {
-                document.getElementById('startstream').value = 'stop';
-            }, 1000);
-        }
+        stop_stream();
     }
 });
+
+function stop_stream() {
+    window.removeEventListener('keypress', take_picture_from_stream);
+    stream = false;
+    this.value = 'wait';
+    var parent = document.createElement('div');
+    parent.classList.add('image');
+    parent.id = 'my-image';
+    document.getElementsByClassName('content-wrapper')[0].prepend(parent);
+    var video = document.getElementById('my-video');
+    if (video) {
+        var tracks = video.srcObject.getTracks();
+        for (i = 0; i < tracks.length; i++) {
+            let track = tracks[i];
+            track.stop();
+        }
+        video.srcObject = null;
+        document.getElementsByClassName('videoimage')[0].remove();
+        setTimeout(() => {
+            document.getElementById('startstream').value = 'start';
+        }, 1000);
+    }
+}
+
+function take_picture_from_stream(e) {
+    if (e.key === ' ' ) {
+        var video = document.getElementById('my-video');
+        var canvas = document.createElement("canvas");
+        canvas.classList.add('forsaving');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.id = 'tosome';
+        canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+        stop_stream();
+        var cont = child_to_parent(document.getElementById('my-image'), 'div', ['editthiscont'], null, null);
+        cont.appendChild(canvas);
+    }
+}
