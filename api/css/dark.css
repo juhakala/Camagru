@@ -72,6 +72,9 @@ body {
 .image {
     background: red;
 }
+.videoimage {
+    background: orange;
+}
 .stickers {
     background: blue;
 }

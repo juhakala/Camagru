@@ -1,3 +1,4 @@
+var stream = false;
 function pickPicture() {
     if (document.getElementById('filetoedit').value != null) {
         if (document.getElementById('loadable_file'))
@@ -273,3 +274,54 @@ if (document.getElementById('loadable_sub')) {
         }
     });
 }
+
+document.getElementById('startstream').addEventListener('click', function() {
+    if (this.value == 'start') {
+        this.value = 'wait';
+        if (navigator.mediaDevices.getUserMedia) {
+            stream = true;
+            if (document.getElementById('my-image'))
+                document.getElementById('my-image').remove();
+            var parent = document.createElement('div');
+            parent.classList.add('image');
+            parent.classList.add('videoimage');
+            document.getElementsByClassName('content-wrapper')[0].prepend(parent);
+            var video = document.createElement('video');
+            parent.append(video);
+            video.id = 'my-video';
+            if (video) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function(mediaStream) {
+                    video.srcObject = mediaStream;
+                    video.play();
+                    setTimeout(() => {
+                        document.getElementById('startstream').value = 'stop';
+                    }, 2000);
+                })
+                .catch(function(err) {
+                    console.log('getUsermMdia related error => ("startstream")');
+                });
+            }
+        }
+    } else if (this.value == 'stop') {
+        stream = false;
+        this.value = 'wait';
+        var parent = document.createElement('div');
+        parent.classList.add('image');
+        parent.id = 'my-image';
+        document.getElementsByClassName('content-wrapper')[0].prepend(parent);
+        var video = document.getElementById('my-video');
+        if (video) {
+            var tracks = video.srcObject.getTracks();
+            for (i = 0; i < tracks.length; i++) {
+                let track = tracks[i];
+                track.stop();
+            }
+            video.srcObject = null;
+            document.getElementsByClassName('videoimage')[0].remove();
+            setTimeout(() => {
+                document.getElementById('startstream').value = 'stop';
+            }, 1000);
+        }
+    }
+});

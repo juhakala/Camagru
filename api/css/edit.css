@@ -4,7 +4,7 @@
     max-width: 94vw;
     max-height: 80vh;
 }
-.stickers, .thumbnail {
+.stickers, .thumbnail, .controls {
     display: flex;
     width: inherit;
     height: 150px;
@@ -14,7 +14,7 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
-.stickers::-webkit-scrollbar, .thumbnail::-webkit-scrollbar {
+.stickers::-webkit-scrollbar, .thumbnail::-webkit-scrollbar, .controls::-webkit-scrollbar {
     display: none;  /* Chrome, Safari, Opera */
 }
 .thumbnail .minicontainer, .stickers .minicontainer{
@@ -75,4 +75,11 @@
     left: 50%;
     transform: translate(-50%, -50%);
     cursor: pointer;
+}
+
+#my-video {
+    width: inherit;
+    max-width: inherit;
+    height: inherit;
+    max-height: inherit;
 }

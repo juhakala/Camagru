@@ -21,7 +21,8 @@ if (isset($_POST['id']) && $_POST['id'] != '' && isset($_POST['comment']) && tri
         $stmt->bindParam(':comment', trim($comment));
         $stmt->execute();
 
-        $stmt = $db->prepare('SELECT email, mailing FROM users INNER JOIN gallery ON users.login = gallery.login');
+        $stmt = $db->prepare('SELECT email, mailing FROM gallery INNER JOIN users ON gallery.login = users.login WHERE gallery.id = :id');
+        $stmt->bindParam(':id', $_POST['id']);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row && $row['mailing'] == 1) {

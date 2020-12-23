@@ -1,13 +1,16 @@
 <div class='main outer-layer'>
     <div class='content-wrapper'>
         <div id='my-image' class='image'>
-        
+
         </div>
         <div class='stickers'>
 
         </div>
         <div class='thumbnail'>
         
+        </div>
+        <div class='controls'>
+            <input type='button' id='startstream' value='start'>
         </div>
     </div>
 </div>

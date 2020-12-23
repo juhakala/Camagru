@@ -1,7 +1,8 @@
 <?php
 session_start();
 $logged_in = ['api/edit.php', 'api/UM/userSettings.php', 'api/UM/resetPass.php'];
-$logged_out = ['api/UM/forgotPass.php"', 'api/UM/newUser.php', 'api/UM/login.php'];
+$logged_out = ['api/UM/forgotPass.php', 'api/UM/newUser.php', 'api/UM/login.php'];
+$both = ['api/gallery.php'];
 if (isset($_POST['email']) && $_POST['email'] != '' && isset($_POST['hash']) && $_POST['hash'] != '') {
     if (!isset($_SESSION['login']) || $_SESSION['login'] == '') {
         require_once('../api/cheater.php');
@@ -14,23 +15,23 @@ if (isset($_POST['email']) && $_POST['email'] != '' && isset($_POST['hash']) && 
 }
 if (isset($_POST['url']) && $_POST['url'] != '') {
     if (!isset($_SESSION['login']) || $_SESSION['login'] == '') {
-        if (in_array($_POST['url'], $logged_in)) {
-            require_once('../api/cheater.php');
-            $_SESSION['aredirectConfirm'] = 0;
-        } else {
+        if (in_array($_POST['url'], $logged_out) || in_array($_POST['url'], $both)) {
             require_once('../' . $_POST['url']);
             $_SESSION['aredirectConfirm'] = 1;
+        } else {
+            require_once('../api/cheater.php');
+            $_SESSION['aredirectConfirm'] = 0;
         }
     } else if ($_SESSION['active'] != '1') {
         require_once('../api/UM/verifyAgain.php');
         $_SESSION['aredirectConfirm'] = 2;
     } else {
-        if (in_array($_POST['url'], $logged_out)) {
-            require_once('../api/cheater.php');
-            $_SESSION['aredirectConfirm'] = 0;
-        } else {
+        if (in_array($_POST['url'], $logged_in) || in_array($_POST['url'], $both)) {
             require_once('../' . $_POST['url']);
             $_SESSION['aredirectConfirm'] = 1;
+        } else {
+            require_once('../api/cheater.php');
+            $_SESSION['aredirectConfirm'] = 0;
         }
     }
 } else if (isset($_POST['data']) && $_POST['data'] != '') {
