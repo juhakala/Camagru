@@ -84,6 +84,9 @@ body {
 .stickers .minicontainer {
     background: #0394fc;
 }
+.controls .minicontainer {
+    background: #7532a8;
+}
 #delete_thumbnail {
     background: white;
     border: 2px solid black;

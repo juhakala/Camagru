@@ -42,7 +42,8 @@ function makeCallForPics() {
                 
                     // atm shits on event listeners -> maybe add counter to elem ids so private listeners? 
                     // works now, messages are shit thou
-                    picture_id = 0; //for infinity scroll
+                    if (sessionStorage.getItem('css_change_gallery') != null)
+                        picture_id = 0; //for infinity scroll
                 } else {
                     resp = JSON.parse(event.target.response);
                     i = -1;

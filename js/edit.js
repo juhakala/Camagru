@@ -1,5 +1,9 @@
 var stream = false;
 function pickPicture() {
+    if (!document.getElementById('my-image')) {
+        document.getElementById('filetoedit').value = null;
+        return ;
+    }
     if (document.getElementById('filetoedit').value != null) {
         if (document.getElementById('loadable_file'))
             document.getElementById('loadable_file').remove();
@@ -9,13 +13,11 @@ function pickPicture() {
         clone.hidden = true;
         document.getElementsByClassName('thisform')[0].appendChild(clone);
         showImage(src);
-    } else {
-        //console.log('not changed');
     }
     document.getElementById('filetoedit').value = null;
 }
 
-function showImage(src) {//},target) {
+function showImage(src) {
     var fr=new FileReader();
     fr.onload = function(e) {
         var parent = document.getElementById('my-image');
@@ -120,21 +122,14 @@ var scroll = 0;
 var moved = false;
 function move(e){
     var diment = document.getElementsByClassName('editthiscont')[0].getBoundingClientRect();
-    var newX = e.clientX - diment['x'] - image.clientWidth / 2;
-    var newY = e.clientY - diment['y'] - image.clientHeight / 2 + scroll;
-//    console.log(' ' + newX + '      ' +newY);
+    var newX = e.clientX - diment['x'] - image.childNodes[0].width / 2;
+    var newY = e.clientY - diment['y'] - image.childNodes[0].height / 2 + scroll;
     if (newX <= diment['width'] && newY <= diment['height']) {
         image.style.left = newX + "px";
         image.style.top = newY + "px";
     }
     moved = true;
 }
-
-//if (document.getElementsByClassName('main')[0]) {
-//    document.getElementsByClassName('main')[0].addEventListener('scroll', (event) => {
-//        //scroll = event.target.scrollTop + event.target.offsetHeight - event.target.clientHeight
-//    });
-//}
 
 function remove(e) {
     this.remove();
@@ -149,12 +144,27 @@ function remove_highlight(e) {
         var yla = parseInt(me.parentElement.style.top) + 2;
         me.parentElement.style.left = uus + 'px';
         me.parentElement.style.top = yla + 'px';
+        window.removeEventListener('keypress', add_sticker_size);
     }
 }
 
 document.addEventListener('mousedown', function(e) {
     remove_highlight(e);
 });
+
+function add_sticker_size(e) {
+    e.preventDefault();
+    var elem = e.currentTarget.myTarget;
+    if (e.key == 'n') {
+        var size = parseInt(elem.width) - 5;
+        if (size > 0)
+            elem.style.width = size + 'px';
+    } else if (e.key == 'm') {
+        var size = parseInt(elem.width) + 5;
+        if (size < 650)
+            elem.style.width = size + 'px';
+    }
+}
 
 function sticker_size(e) {
     if (!moved) {
@@ -166,6 +176,8 @@ function sticker_size(e) {
         setTimeout(function() {
             e.target.setAttribute('id', 'stick_target');
         }, 100);
+        window.addEventListener('keypress', add_sticker_size);
+        window.myTarget = e.target;
     }
     moved = false;
 }
@@ -189,8 +201,6 @@ function add_sticker_to_image(src) {
         newx = diment['width'] / 2 - stic.width / 2;
         newy = diment['height'] / 2 - stic.height / 2;
         child.setAttribute('style', 'left:'+newx+'px;top:'+newy+'px;');
-    } else {
-        //console.log('need base image first');
     }
 }
 
@@ -237,7 +247,7 @@ function get_stickers_data(formData) {
     s = 0;
     stickers.forEach(function(elem) {
         dataArr[s] = {};
-        var diment = elem.getBoundingClientRect();
+        var diment = elem.childNodes[0].getBoundingClientRect();
         dataArr[s]['name'] = '../stickers/' + elem.getAttribute('alt').substring(elem.getAttribute('alt').lastIndexOf("/") + 1);
         dataArr[s]['width'] = diment['width'];
         dataArr[s]['height'] = diment['height'];
@@ -274,8 +284,6 @@ if (document.getElementById('loadable_sub')) {
                 var formData = new FormData(document.getElementsByClassName("thisform")[0]);
             get_stickers_data(formData);
             xhr.send(formData);
-        } else {
-            //console.log('is nothing');
         }
     });
 }
@@ -302,8 +310,12 @@ document.getElementById('startstream').addEventListener('click', function(e) {
                     video.srcObject = mediaStream;
                     video.play();
                     setTimeout(() => {
+                        var missi = child_to_parent(document.getElementsByClassName('controls')[0], 'div', ['minicontainer', 'controls-here'], null, null);
+                        var take = child_to_parent(missi, 'input', ['ctrl-button', 'middle_thumbnail'], ['type', 'button', 'value', '3', 'id', 'take_photo'], null);
                         document.getElementById('startstream').value = 'stop';
                         window.addEventListener('keypress', take_picture_from_stream);
+                        take.addEventListener('click', take_picture_from_stream);
+                        take.key = 'bb';
                     }, 2000);
                 })
                 .catch(function(err) {
@@ -333,6 +345,8 @@ function stop_stream() {
         }
         video.srcObject = null;
         document.getElementsByClassName('videoimage')[0].remove();
+        if (document.getElementById('take_photo'))
+            document.getElementById('take_photo').parentNode.remove();
         setTimeout(() => {
             document.getElementById('startstream').value = 'start';
         }, 1000);
@@ -340,7 +354,8 @@ function stop_stream() {
 }
 
 function take_picture_from_stream(e) {
-    if (e.key === ' ' ) {
+    if (e.key && e.key === ' ') {
+        document.getElementById('take_photo').parentNode.remove();
         var video = document.getElementById('my-video');
         var canvas = document.createElement("canvas");
         canvas.classList.add('forsaving');
@@ -351,5 +366,29 @@ function take_picture_from_stream(e) {
         stop_stream();
         var cont = child_to_parent(document.getElementById('my-image'), 'div', ['editthiscont'], null, null);
         cont.appendChild(canvas);
-    }
+    } else if (e.currentTarget && e.currentTarget.key ==='bb') {
+        var elem = document.getElementById('take_photo');
+        var time = setInterval(function() {
+            elem.value = parseInt(elem.value) - 1;
+        }, 1000);
+        setTimeout(function () {
+            clearInterval(time);
+            if (!document.getElementById('take_photo'))
+                return ;
+            document.getElementById('take_photo').parentNode.remove();
+            var video = document.getElementById('my-video');
+            var canvas = document.createElement("canvas");
+            canvas.classList.add('forsaving');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.id = 'tosome';
+            canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+            stop_stream();
+            var cont = child_to_parent(document.getElementById('my-image'), 'div', ['editthiscont'], null, null);
+            cont.appendChild(canvas);
+        }, 4000);
+    } else
+        return ;
+    if (document.getElementById('take_photo'))
+        document.getElementById('take_photo').removeEventListener('click', take_picture_from_stream);
 }

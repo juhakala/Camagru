@@ -9,6 +9,10 @@
             <input type='checkbox' id='css_change' class='css_change_night' name='night' value='night'>
             <label>Dark mode</label>
         </div>
+        <div class='something'>
+            <input type='checkbox' id='css_change' class='css_change_gallery' name='gallery' value='gallery'>
+            <label>Inf. gallery</label>
+        </div>
     </div>
     <div class="filler"></div>
     <div class='login'>&#169; jhakala</div>

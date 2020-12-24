@@ -26,9 +26,6 @@ try {
     $db->exec("INSERT IGNORE INTO gallery (name, login) VALUES ('dog1.jpg', 'admin')");
     $db->exec("INSERT IGNORE INTO gallery (name, login) VALUES ('dog2.jpg', 'admin')");
     $db->exec("INSERT IGNORE INTO gallery (name, login) VALUES ('dog3.jpg', 'admin')");
-    $db->exec("INSERT IGNORE INTO gallery (name, login) VALUES ('dog4.jpg', 'admin')");
-    $db->exec("INSERT IGNORE INTO gallery (name, login) VALUES ('dog5.jpg', 'admin')");
-    $db->exec("INSERT IGNORE INTO gallery (name, login) VALUES ('dog6.jpg', 'admin')");
 
     $db->exec('CREATE TABLE IF NOT EXISTS `stickers` (
         `id` int(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -37,6 +34,56 @@ try {
     $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('stick1.png')");
     $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('whatsapp.png')");
     $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('mailmonkey.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('rolrs.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('wies.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('pors.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('mase.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('knight.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('hat-top.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('hat-russia.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('hat-cook.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('hat-cowboy.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('hat-pirate.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('eye1.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('eye2.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('we-know.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('panda.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('ani-cat.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('cat.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('cat2.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('dog1.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('dog2.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('dog3.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('dog4.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('fire.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('100.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('fail.png')");
+    $db->exec("INSERT IGNORE INTO stickers (src) VALUES ('heart.png')");
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     $db->exec('CREATE TABLE IF NOT EXISTS `likes` (
         `id_gallery` int(10) unsigned NOT NULL,

@@ -17,7 +17,7 @@
 .stickers::-webkit-scrollbar, .thumbnail::-webkit-scrollbar, .controls::-webkit-scrollbar {
     display: none;  /* Chrome, Safari, Opera */
 }
-.thumbnail .minicontainer, .stickers .minicontainer{
+.thumbnail .minicontainer, .stickers .minicontainer, .controls .minicontainer{
     position: relative;
     height: 150px;
     width: 200px;
@@ -42,6 +42,13 @@
 .stickerpicture {
     max-width: 80px;
     max-height: 80px;
+}
+.ctrl-button {
+    width: 100px;
+    height: 100px;
+}
+.ctrl-file {
+    size: 100px;
 }
 #my-image {
     overflow: hidden;
