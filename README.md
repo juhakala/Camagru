@@ -38,6 +38,13 @@
 <img src="media/edit.png" width="700">
 
 ```
+- picture taken from webcam and added to database with somestickers
+ - [x] hovering over thumbnails gives the button to delete picture (not in gif)
+```
+
+<img src="media/camagru-edit.gif" width="700">
+
+```
 - Constraints and Mandatory things:
   - Authorized languages:
     - [x] Server => PHP
