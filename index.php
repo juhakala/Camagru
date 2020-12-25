@@ -18,7 +18,7 @@ require_once('server/verifySessionLogin.php');
         <link rel="stylesheet" href="api/css/userSettings.css">
 
     </head>
-    <body oncontextmenu="return false;">
+    <body>
         <div class='head'>
             <?php include('header.php'); ?>
         </div>
